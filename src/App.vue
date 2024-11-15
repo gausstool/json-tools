@@ -66,6 +66,13 @@ const onRadioClick = async (value: string) => {
   border-radius: 8px; 
 }
 
+@media screen and (min-width: 1024px) {
+  .app-container {
+    width: 960px;
+    height: 480px;
+  }
+}
+
 @media screen and (min-width: 1366px) {
   .app-container {
     width: 1280px;
