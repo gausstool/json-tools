@@ -1,5 +1,4 @@
-<template>  
-  <HomeHeader></HomeHeader>
+<template>
   <div class="app-container" :class="{ screenshot: isScreenshot }">
   <div class="app-home" >
     <div class="app-tips" >
@@ -56,20 +55,34 @@ const onRadioClick = async (value: string) => {
 
 <style scoped>
 .app-container {
-  width: 1024px;
-  height: 640px;
+  width: 100%;
+  height: 100%;
   padding: 8px;
   position: relative;
   left: 50%;
-  top: calc(50% + 30px);
+  top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 8px; 
+}
+
+@media screen and (min-width: 960px) {
+  .app-container {
+    width: 800px;
+    height: 450px;
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .app-container {
     width: 960px;
     height: 480px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .app-container {
+    width: 1200px;
+    height: 600px;
   }
 }
 
@@ -83,14 +96,14 @@ const onRadioClick = async (value: string) => {
 @media screen and (min-width: 1536px) {
   .app-container {
     width: 1366px;
-    height: 640px;
+    height: 678px;
   }
 }
 
 @media screen and (min-width: 1600px) {
   .app-container {
     width: 1440px;
-    height: 640px;
+    height: 720px;
   }
 }
 
