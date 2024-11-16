@@ -47,12 +47,14 @@ function jsonSort(input: string) {
 
 function urlParser(input: string) {
   const object = new URL(input);
-  const map: Record<string, string> = {};
-  const params = object.searchParams;
-  console.log(params)
+  const searchParamsMap: Record<string, string> = {};
+  const params = object.searchParams;  
   params.forEach((value, key) => {
-    map[key] = value
+    searchParamsMap[key] = value
   })
+  const matches = object.hash.match(/#(?<path>\/[^\?]*)/);
+  const matches2 = object.hash.match(/#.*(?<search>\?.*)/);
+  console.log(matches2)
   return JSON.stringify({
     href: object.href,
     protocol: object.protocol,
@@ -60,9 +62,11 @@ function urlParser(input: string) {
     hostname: object.hostname,
     port: object.port,
     pathname: object.pathname,
-    hash: object.hash,
     search: object.search,
-    searchParams: map,
+    searchParams: searchParamsMap,
+    hash: object.hash,
+    hashPath: matches?.groups?.path,
+    hashSearch: matches2?.groups?.search
   }, null, 2);
 }
 

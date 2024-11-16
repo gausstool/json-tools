@@ -22,7 +22,7 @@ import editorConsoleInstance from '../editor/console';
 
 const code1 = `// 粘贴需要进行比对的代码
 void main() {
-    printf("hello, world");
+  printf("hello, world");
 }
 `;
 

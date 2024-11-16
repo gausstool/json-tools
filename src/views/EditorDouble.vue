@@ -27,11 +27,11 @@ const codeJsonFormat = `{"foo":"bar","hello":"world"}`;
 const codeJsonParser = `{\"c\": \"{\\\"b\\\":\\\"{\\\\\\\"a\\\\\\\":1}\\\"}\"}`;
 const codeJsonSort = `{"foo":"bar","hello":"world","a": 1, "d": 2, "c": 1}`;
 const codeJson2Ts = `{
-    "foo":"bar",
-    "hello":"world",
-    "test": {
-        "a": 1
-    }
+  "foo":"bar",
+  "hello":"world",
+  "test": {
+    "a": 1
+  }
 }`
 
 const codeFunctionn2Class = `
