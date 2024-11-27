@@ -9,6 +9,10 @@ const routes = [
     component: EditorDiff
   },
   {
+    path: '/text-size',
+    component: EditorDouble
+  },
+  {
     path: '/url-parser',
     component: EditorDouble
   },

@@ -5,6 +5,11 @@ export const tools = [
     value: "/text-diff",
   },
   {
+    label: "TEXT 大小",
+    icon: "",
+    value: "/text-size",
+  },
+  {
     label: "URL 解析",
     icon: "",
     value: "/url-parser",

@@ -1,4 +1,5 @@
 import { json2ts } from 'json-ts';
+import { sizeofByte } from './size';
 
 function parseJSON(obj: any): Record<string, any> | string {
   if (typeof obj === 'string' && obj.startsWith('{')) {
@@ -113,6 +114,13 @@ export async function processContent(input: string, type: string) {
   } else if (type === "/url-parser") {
     try {
       output = urlParser(input)
+    } catch (error) {
+      flag = "failure"
+      output = 'URL 解析失败';
+    }
+  } else if (type === "/text-size") {
+    try {
+      output = sizeofByte(input)
     } catch (error) {
       flag = "failure"
       output = 'URL 解析失败';

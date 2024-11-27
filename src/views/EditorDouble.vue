@@ -19,6 +19,7 @@ import {
 } from '../editor/editor';
 import editorConsoleInstance from '../editor/console';
 
+const codeSize = `计算字符串所占的内存字节数，使用UTF-8的编码方式计算`;
 const codeJsonCompress = `{
   "foo": "bar",
   "hello": "world"
@@ -70,6 +71,9 @@ async function save() {
 async function fetch() {
   console.log('fetch')
   await localforage.getItem(`tool${route.path}`).then((value) => {
+    if (route.path == '/text-size') {
+      model1.setValue(value as string || codeSize)
+    }
     if (route.path == '/url-parser') {
       model1.setValue(value as string || window.location.href)
     }
