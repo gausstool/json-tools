@@ -1,5 +1,5 @@
 {
-  "name": "@gausszhou/my-tools",
+  "name": "@gausszhou/json-tools",
   "version": "1.0.0",
   "author": "gausszhou",
   "private": true,
@@ -23,8 +23,10 @@
     "@types/babel__traverse": "^7.20.6",
     "@types/jscodeshift": "^0.12.0",
     "@types/lodash": "^4.17.13",
+    "@types/node": "^22.14.1",
     "@vitejs/plugin-vue": "^4.2.1",
     "adm-zip": "^0.5.12",
+    "dotenv": "^16.5.0",
     "sass": "^1.62.1",
     "typescript": "^4.2.0",
     "unplugin-auto-import": "^0.15.3",

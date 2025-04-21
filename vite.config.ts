@@ -1,9 +1,10 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
-// https://vitejs.dev/config/
+import 'dotenv/config';
+
 export default defineConfig(async () => ({
-  base: "/json-tools/",
+  base: process.env.VITE_BASE_URL || '/',
   plugins: [
     nodePolyfills(),
     vue()
@@ -14,6 +15,6 @@ export default defineConfig(async () => ({
     strictPort: true,
   },
   build: {
-    outDir: './dist'
+    outDir: process.env.VITE_BUILD_DIR || 'dist',
   }
 }));
