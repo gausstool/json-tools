@@ -1,57 +1,62 @@
 <template>
   <div class="app-container" :class="{ screenshot: isScreenshot }">
-  <div class="app-home" >
-    <div class="app-tips" >
-      <span class="app-tips-text" @click="toggle">
-        <i class="icon red"></i>
-        <i class="icon yellow"></i>
-        <i class="icon green"></i>
-      </span>
-      <span v-if="!isScreenshot" class="app-tips-text" >--ignore-certificate-errors --force-renderer-accessibility</span>
-    </div>
-    <div class="app-main">
-      <div class="menu-container">
-        <div class="g-menu second-level">
-          <div class="g-menu-item" tabindex="0" :class="{ 'is-active': item.value === route.path }" v-for="item in tools"
-            :key="item.value" @click="onRadioClick(item.value)">
-            <span class="label">{{ item.label }}</span>
+    <div class="app-home">
+      <div class="app-header">
+        <span class="app-icon-button" @click="toggle">
+          <i class="icon red"></i>
+          <i class="icon yellow"></i>
+          <i class="icon green"></i>
+        </span>
+        <span v-if="!isScreenshot" class="app-tips-text">--ignore-certificate-errors --force-renderer-accessibility</span>
+      </div>
+      <div class="app-main">
+        <div class="menu-container">
+          <div class="g-menu second-level">
+            <div
+              class="g-menu-item"
+              tabindex="0"
+              :class="{ 'is-active': item.value === route.path }"
+              v-for="item in tools"
+              :key="item.value"
+              @click="onRadioClick(item.value)"
+            >
+              <span class="label">{{ item.label }}</span>
+            </div>
           </div>
         </div>
+        <div class="tool-container">
+          <router-view></router-view>
+        </div>
       </div>
-      <div class="tool-container">
-        <router-view></router-view>
-      </div>
+      <div id="console-container"></div>
     </div>
-    <div id="console-container"></div>
   </div>
-</div>
 </template>
 
 <script lang="ts" setup>
-import HomeHeader from './components/HomeHeader.vue'
-import editorConsoleInstance from './editor/console';
-import localforage from 'localforage';
-import { onMounted, onUnmounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { processContent } from './utils/transform';
-import { tools } from './config';
+import HomeHeader from "./components/HomeHeader.vue";
+import editorConsoleInstance from "./editor/console";
+import localforage from "localforage";
+import { onMounted, onUnmounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { processContent } from "./utils/transform";
+import { tools } from "./config";
 
 const isScreenshot = ref(false);
 const toggle = () => {
-  isScreenshot.value = !isScreenshot.value
-}
+  isScreenshot.value = !isScreenshot.value;
+};
 onMounted(() => {
-  const $parent = document.getElementById('console-container') as HTMLElement;
-  editorConsoleInstance.mount($parent)
-})
+  const $parent = document.getElementById("console-container") as HTMLElement;
+  editorConsoleInstance.mount($parent);
+});
 
 const route = useRoute();
 const router = useRouter();
 const onRadioClick = async (value: string) => {
-  router.push({ path: value })
+  router.push({ path: `/json-tools/${value}` });
 };
 </script>
-
 
 <style scoped>
 .app-container {
@@ -62,7 +67,7 @@ const onRadioClick = async (value: string) => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 8px; 
+  border-radius: 8px;
 }
 
 @media screen and (min-width: 960px) {
@@ -114,7 +119,6 @@ const onRadioClick = async (value: string) => {
   }
 }
 
-
 .app-home {
   width: 100%;
   height: 100%;
@@ -129,7 +133,7 @@ const onRadioClick = async (value: string) => {
   box-shadow: 1px 1px 10px #1e1e1e;
 }
 
-.app-tips {
+.app-header {
   font-family: monospace;
   padding: 0 12px;
   line-height: 30px;
@@ -140,7 +144,7 @@ const onRadioClick = async (value: string) => {
   justify-content: space-between;
 }
 
-.app-tips .icon {
+.app-header .icon {
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -148,16 +152,23 @@ const onRadioClick = async (value: string) => {
   margin-right: 8px;
 }
 
-.icon.red {
+.app-icon-button {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .icon.red {
   background-color: #ff5f56;
 }
-.icon.yellow {
+
+.app-header .icon.yellow {
   background-color: #ffbd2e;
 }
 
-.icon.green {
+.app-header .icon.green {
   background-color: #27c93f;
 }
+
 .app-main {
   flex: 1;
   height: calc(100% - 30px);

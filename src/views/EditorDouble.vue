@@ -71,25 +71,25 @@ async function save() {
 async function fetch() {
   console.log('fetch')
   await localforage.getItem(`tool${route.path}`).then((value) => {
-    if (route.path == '/text-size') {
+    if (route.name == 'text-size') {
       model1.setValue(value as string || codeSize)
     }
-    if (route.path == '/url-parser') {
+    if (route.name == 'url-parser') {
       model1.setValue(value as string || window.location.href)
     }
-    if (route.path == '/json-compress') {
+    if (route.name == 'json-compress') {
       model1.setValue(value as string || codeJsonCompress)
     }
-    if (route.path == '/json-format') {
+    if (route.name == 'json-format') {
       model1.setValue(value as string || codeJsonFormat)
     }
-    if (route.path == '/json-parser-deep') {
+    if (route.name == 'json-parser-deep') {
       model1.setValue(value as string || codeJsonParser)
     }
-    if (route.path == '/json-sort') {
+    if (route.name == 'json-sort') {
       model1.setValue(value as string || codeJsonSort)
     }
-    if (route.path == '/json-to-ts') {
+    if (route.name == 'json-to-ts') {
       model1.setValue(value as string || codeJson2Ts)
     }
   })

@@ -17,12 +17,6 @@ body {
   --terminal-height:  60px;
 }
 
-#app {
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffffff;
-}
-
 .ml-1x {
   margin-left: 4px;
 }
@@ -37,4 +31,10 @@ a {
 
 a:hover {
   color:#409eff;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
 }
