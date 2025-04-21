@@ -10,10 +10,10 @@ export default defineConfig(async () => ({
   ],
   clearScreen: false,
   server: {
-    port: 1420,
+    port: 1997,
     strictPort: true,
   },
   build: {
-    outDir: './dist/json-tools/'
+    outDir: './dist'
   }
 }));
