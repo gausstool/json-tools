@@ -15,7 +15,7 @@
             <div
               class="g-menu-item"
               tabindex="0"
-              :class="{ 'is-active': item.value === route.path }"
+              :class="{ 'is-active': item.value === route.name }"
               v-for="item in tools"
               :key="item.value"
               @click="onRadioClick(item.value)"
@@ -54,7 +54,7 @@ onMounted(() => {
 const route = useRoute();
 const router = useRouter();
 const onRadioClick = async (value: string) => {
-  router.push({ path: `/json-tools/${value}` });
+  router.push({ name: value });
 };
 </script>
 

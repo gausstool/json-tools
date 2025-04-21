@@ -1,11 +1,11 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import EditorDiff from "../views/EditorDiff.vue";
 import EditorDouble from "../views/EditorDouble.vue";
 
 const routes = [
   { path: "", redirect: { name: "json-format" } },
   {
-    path: '/json-tools/',
+    path: '/',
     children: [
       {
         name: 'text-diff',
@@ -53,7 +53,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
