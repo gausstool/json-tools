@@ -34,6 +34,12 @@ const codeJson2Ts = `{
     "a": 1
   }
 }`
+const codeJsonFlat = `{"a1":{"a2":1},"b1":{"a2":2},"c1":{"a2": 3}}`;
+const codeJsonNesting = `{
+  "a1.a2": 1,
+  "b1.a2": 2,
+  "c1.a2": 3
+}`;
 
 const code1 = ``;
 const code2 = ``;
@@ -76,6 +82,12 @@ async function fetch() {
     }
     if (route.name == 'json-to-ts') {
       model1.setValue(value as string || codeJson2Ts)
+    }
+    if (route.name == 'json-flat') {
+      model1.setValue(value as string || codeJsonFlat)
+    }
+    if (route.name == 'json-nesting') {
+      model1.setValue(value as string || codeJsonNesting)
     }
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")

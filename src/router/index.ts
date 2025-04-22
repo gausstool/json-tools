@@ -40,6 +40,14 @@ const routes = [
         name: EnumTools.JSON_TO_TS,
         component: EditorDouble,
       },
+      {
+        name: EnumTools.JSON_FlAT,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.JSON_NESTING,
+        component: EditorDouble,
+      }
     ].map((route) => {
       return {
         ...route,

@@ -1,11 +1,13 @@
 import { json2ts } from 'json-ts';
+import { EnumTools } from '../types';
 import { jsonCompress } from './modules/json-compress';
+import { jsonFlat } from './modules/json-flat';
+import { jsonFormat } from './modules/json-format';
+import { jsonParseDeep } from './modules/json-parse-deep';
 import { jsonSort } from './modules/json-sort';
 import { sizeofByte } from './modules/size-of-byte';
 import { urlParse } from './modules/url-parse';
-import { jsonFormat } from './modules/json-format';
-import { jsonParseDeep } from './modules/json-parse-deep';
-import { EnumTools } from '../types';
+import { jsonNesting } from './modules/json-nesting';
 
 export const methodMap: Record<EnumTools, Function> = {
   "text-diff": (input: string) => input, // Placeholder for text diff function
@@ -15,6 +17,9 @@ export const methodMap: Record<EnumTools, Function> = {
   "json-format": jsonFormat,
   "json-parse-deep": jsonParseDeep,
   "json-sort": jsonSort,
+  "json-flat": jsonFlat,
+  "json-nesting": jsonNesting,
+  "json-to-csv": (input: string) => input, // Placeholder for JSON to CSV function
   "json-to-ts": json2ts,
 }
 

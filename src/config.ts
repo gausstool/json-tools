@@ -43,6 +43,16 @@ export const tools: ITool[] = [
     value: EnumTools.JSON_PARSE_DEEP,
   },
   {
+    label: "JSON 嵌套转扁平",
+    icon: "",
+    value: EnumTools.JSON_FlAT,
+  },
+  {
+    label: "JSON 扁平转嵌套",
+    icon: "",
+    value: EnumTools.JSON_NESTING,
+  },
+  {
     label: "JSON 转 TypeScript",
     icon: "",
     value: EnumTools.JSON_TO_TS,

@@ -11,9 +11,9 @@
 - [x] JSON 排序
 - [ ] JSON 深度合并
 - [x] JSON 深度解析
-- [ ] JSON 转 TypeScript
-- [ ] JSON 嵌套转扁平
-- [ ] JSON 扁平转嵌套
+- [x] JSON 转 TypeScript
+- [x] JSON 嵌套转扁平
+- [x] JSON 扁平转嵌套
 - [ ] JSON 转 Object
 - [ ] Object 转 JSON
 - [ ] JSON 转 YAML
