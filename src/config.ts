@@ -1,42 +1,50 @@
-export const tools = [
+import { EnumTools } from "./types";
+
+interface ITool {
+  label: string; // 显示的名称
+  icon: string; // 图标的 URL 或路径
+  value: EnumTools;
+}
+
+export const tools: ITool[] = [
   {
     label: "TEXT 对比",
     icon: "",
-    value: "text-diff",
+    value: EnumTools.TEXT_DIFF,
   },
   {
     label: "TEXT 大小",
     icon: "",
-    value: "text-size",
+    value: EnumTools.TEXT_SIZE,
   },
   {
     label: "URL 解析",
     icon: "",
-    value: "url-parser",
+    value: EnumTools.URL_PARSE,
   },
   {
     label: "JSON 压缩",
     icon: "",
-    value: "json-compress",
+    value: EnumTools.JSON_COMPRESS,
   },
   {
     label: "JSON 格式化",
     icon: "",
-    value: "json-format",
+    value: EnumTools.JSON_FORMAT,
   },
   {
     label: "JSON 排序",
     icon: "",
-    value: "json-sort",
+    value: EnumTools.JSON_SORT,
   },
   {
     label: "JSON 深度解析",
     icon: "",
-    value: "json-parser-deep",
+    value: EnumTools.JSON_PARSE_DEEP,
   },
   {
     label: "JSON 转 TypeScript",
     icon: "",
-    value: "json-to-ts",
+    value: EnumTools.JSON_TO_TS,
   }
 ];

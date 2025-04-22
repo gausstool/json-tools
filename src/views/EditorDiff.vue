@@ -4,21 +4,18 @@
 
 <script setup lang="ts">
 import localforage from 'localforage';
-import { onMounted, onUnmounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { processContent } from '../utils/transform';
+import { onMounted, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
+import editorConsoleInstance from '../editor/console';
 import {
   addCommandSave,
   addContainer,
   addEditorIntoManageList,
-  createEditorContainer, 
-  createEditorInstance, 
-  createEditorModel, 
-  disposeEditorList, 
-  setModelLanguage,
-  createEditorDiff
+  createEditorContainer,
+  createEditorDiff,
+  createEditorModel,
+  disposeEditorList
 } from '../editor/editor';
-import editorConsoleInstance from '../editor/console';
 
 const code1 = `// 粘贴需要进行比对的代码
 void main() {
@@ -46,12 +43,12 @@ const route = useRoute();
 async function save() {
   const code1 = model1.getValue();
   const code2 = model2.getValue();
-  await localforage.setItem(`my-tools${route.path}`, JSON.stringify({code1, code2}))
+  await localforage.setItem(`code-tools-${String(route.name)}`, JSON.stringify({code1, code2}))
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Save Success")
 }
 
 async function fetch() {
-  await localforage.getItem(`my-tools${route.path}`).then((value: any) => {
+  await localforage.getItem(`code-tools-${String(route.name)}`).then((value: any) => {
     const { code1, code2 } = JSON.parse(value);
     model1.setValue(code1)
     model2.setValue(code2)
@@ -67,7 +64,6 @@ onMounted(async () => {
   addEditorIntoManageList(editor1)
   addContainer(document.getElementById("editor-diff") as HTMLDivElement, $container1)
   await fetch()
-  await excute()
 });
 
 onUnmounted(() => {

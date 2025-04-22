@@ -34,13 +34,10 @@
 </template>
 
 <script lang="ts" setup>
-import HomeHeader from "./components/HomeHeader.vue";
-import editorConsoleInstance from "./editor/console";
-import localforage from "localforage";
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { processContent } from "./utils/transform";
 import { tools } from "./config";
+import editorConsoleInstance from "./editor/console";
 
 const isScreenshot = ref(false);
 const toggle = () => {

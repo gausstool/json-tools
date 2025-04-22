@@ -1,55 +1,52 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import EditorDiff from "../views/EditorDiff.vue";
 import EditorDouble from "../views/EditorDouble.vue";
+import { EnumTools } from "../types";
 
 const routes = [
   { path: "", redirect: { name: "json-format" } },
   {
-    path: '/',
+    path: "/",
     children: [
       {
-        name: 'text-diff',
-        path: 'text-diff',
-        component: EditorDiff
+        name: EnumTools.TEXT_DIFF,
+        component: EditorDiff,
       },
       {
-        name: 'text-size',
-        path: 'text-size',
-        component: EditorDouble
+        name: EnumTools.TEXT_SIZE,
+        component: EditorDouble,
       },
       {
-        name: 'url-parser',
-        path: 'url-parser',
-        component: EditorDouble
+        name: EnumTools.URL_PARSE,
+        component: EditorDouble,
       },
       {
-        name: 'json-compress',
-        path: 'json-compress',
-        component: EditorDouble
+        name: EnumTools.JSON_COMPRESS,
+        component: EditorDouble,
       },
       {
-        name: 'json-format',
-        path: 'json-format',
-        component: EditorDouble
+        name: EnumTools.JSON_FORMAT,
+        component: EditorDouble,
       },
       {
-        name: 'json-sort',
-        path: 'json-sort',
-        component: EditorDouble
+        name: EnumTools.JSON_SORT,
+        component: EditorDouble,
       },
       {
-        name: 'json-parser-deep',
-        path: 'json-parser-deep',
-        component: EditorDouble
+        name: EnumTools.JSON_PARSE_DEEP,
+        component: EditorDouble,
       },
       {
-        name: 'json-to-ts',
-        path: 'json-to-ts',
-        component: EditorDouble
+        name: EnumTools.JSON_TO_TS,
+        component: EditorDouble,
       },
-    ]
+    ].map((route) => {
+      return {
+        ...route,
+        path: route.name, // 使用工具名称作为路径
+      }
+    }),
   },
-  
 ];
 
 const router = createRouter({

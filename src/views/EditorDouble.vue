@@ -4,20 +4,20 @@
 
 <script setup lang="ts">
 import localforage from 'localforage';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
-import { processContent } from '../utils/transform';
+import { onMounted, onUnmounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import editorConsoleInstance from '../editor/console';
 import {
   addCommandSave,
   addContainer,
   addEditorIntoManageList,
-  createEditorContainer, 
-  createEditorInstance, 
-  createEditorModel, 
-  disposeEditorList, 
-  setModelLanguage
+  createEditorContainer,
+  createEditorInstance,
+  createEditorModel,
+  disposeEditorList
 } from '../editor/editor';
-import editorConsoleInstance from '../editor/console';
+import { processContent } from '../transform';
+import { EnumTools } from '../types';
 
 const codeSize = `计算字符串所占的内存字节数，使用UTF-8的编码方式计算`;
 const codeJsonCompress = `{
@@ -35,22 +35,6 @@ const codeJson2Ts = `{
   }
 }`
 
-const codeFunctionn2Class = `
-function Test() {
-  this.a = 1;
-  this.b = 2;
-  this.inner = function inner() {}
-}
-Test.title ="Test";
-Test.prototype.number = 0;
-Test.min = function (a: number, b: number) {
-  return Math.min(a,b)
-}
-Test.prototype.add = function(a: number, b: number) {
-  return a + b;
-}
-`
-
 const code1 = ``;
 const code2 = ``;
 const model1 = createEditorModel(code1, "javascript");
@@ -64,13 +48,14 @@ const route = useRoute();
 
 async function save() {
   const code1 = model1.getValue();
-  await localforage.setItem(`tool${route.path}`, code1)
+  const key = `code-tools-${String(route.name)}`;
+  await localforage.setItem(key, code1)
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Save Success")
 }
 
 async function fetch() {
-  console.log('fetch')
-  await localforage.getItem(`tool${route.path}`).then((value) => {
+  const key = `code-tools-${String(route.name)}`;
+  await localforage.getItem(key).then((value) => {
     if (route.name == 'text-size') {
       model1.setValue(value as string || codeSize)
     }
@@ -83,7 +68,7 @@ async function fetch() {
     if (route.name == 'json-format') {
       model1.setValue(value as string || codeJsonFormat)
     }
-    if (route.name == 'json-parser-deep') {
+    if (route.name == 'json-parse-deep') {
       model1.setValue(value as string || codeJsonParser)
     }
     if (route.name == 'json-sort') {
@@ -118,7 +103,7 @@ onUnmounted(() => {
 
 async function excute() {
   const value1 = editor1.getValue();
-  const type = route.path;
+  const type = route.name as EnumTools; // 默认类型为 text-size
   try {
     const [value, flag] = await processContent(value1, type);
     editor2.setValue(value as string);
