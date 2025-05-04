@@ -65,7 +65,7 @@ async function fetch() {
     if (route.name == 'text-size') {
       model1.setValue(value as string || codeSize)
     }
-    if (route.name == 'url-parser') {
+    if (route.name == 'url-parse') {
       model1.setValue(value as string || window.location.href)
     }
     if (route.name == 'json-compress') {
