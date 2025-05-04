@@ -10,7 +10,7 @@ pnpm build
 
 # push
 
-cd dist
+cd dist/json-tools
 
 git init
 git add .
