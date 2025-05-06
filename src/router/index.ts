@@ -41,7 +41,7 @@ const routes = [
         component: EditorDouble,
       },
       {
-        name: EnumTools.JSON_FlAT,
+        name: EnumTools.JSON_FLAT,
         component: EditorDouble,
       },
       {

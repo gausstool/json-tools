@@ -10,21 +10,23 @@ import { urlParse } from './modules/url-parse';
 import { jsonNesting } from './modules/json-nesting';
 import { json2yaml, yaml2json } from './modules/json-yaml';
 
-export const methodMap: Record<EnumTools, Function> = {
-  "text-diff": (input: string) => input, // Placeholder for text diff function
-  "text-size": sizeofByte,
-  "url-parse": urlParse,
-  "json-compress": jsonCompress,
-  "json-format": jsonFormat,
-  "json-parse-deep": jsonParseDeep,
-  "json-sort": jsonSort,
-  "json-flat": jsonFlat,
-  "json-nesting": jsonNesting,
-  "json-to-csv": (input: string) => input, // Placeholder for JSON to CSV function
-  "json-to-ts": json2ts,
+type ToolFunction = (input: string) => string;
+
+export const methodMap: Record<EnumTools, ToolFunction> = {
+  [EnumTools.TEXT_DIFF]: (input: string) => input, // Placeholder for text diff function
+  [EnumTools.TEXT_SIZE]: sizeofByte,
+  [EnumTools.URL_PARSE]: urlParse,
+  [EnumTools.JSON_COMPRESS]: jsonCompress,
+  [EnumTools.JSON_FORMAT]: jsonFormat,
+  [EnumTools.JSON_PARSE_DEEP]: jsonParseDeep,
+  [EnumTools.JSON_SORT]: jsonSort,
+  [EnumTools.JSON_FLAT]: jsonFlat,
+  [EnumTools.JSON_NESTING]: jsonNesting,
+  [EnumTools.JSON_TO_CSV]: (input: string) => input, // Placeholder for JSON to CSV function
+  [EnumTools.JSON_TO_TS]: json2ts,
   [EnumTools.JSON_TO_YAML]: json2yaml,
-  [EnumTools.YAML_TO_JSON]: yaml2json
-}
+  [EnumTools.YAML_TO_JSON]: yaml2json,
+};
 
 export async function processContent(input: string, type: EnumTools) {  
   if (!methodMap[type]) {
@@ -36,7 +38,7 @@ export async function processContent(input: string, type: EnumTools) {
   try {
     output = methodMap[type](input)
   } catch (error) {
-    flag = "failure"
+    flag = "failure" + error;
     output = 'JSON 解析失败';
   }  
   return [output, flag];

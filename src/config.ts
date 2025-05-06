@@ -45,7 +45,7 @@ export const tools: ITool[] = [
   {
     label: "JSON 嵌套转扁平",
     icon: "",
-    value: EnumTools.JSON_FlAT,
+    value: EnumTools.JSON_FLAT,
   },
   {
     label: "JSON 扁平转嵌套",
