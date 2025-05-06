@@ -9,6 +9,10 @@ const routes = [
     path: "/",
     children: [
       {
+        name: EnumTools.TEXT_DIFF,
+        component: EditorDiff,
+      },
+      {
         name: EnumTools.TEXT_SIZE,
         component: EditorDouble,
       },

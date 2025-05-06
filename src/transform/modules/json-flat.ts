@@ -9,7 +9,7 @@ export function jsonFlat(text: string, prefix = ''): string {
         }
 
         for (const key in currentObj) {
-            if (currentObj.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.bind(currentObj, key)) {
                 const newPrefix = currentPrefix ? `${currentPrefix}.${key}` : key;
                 traverse(currentObj[key], newPrefix, callback);
             }

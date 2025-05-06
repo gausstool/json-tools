@@ -12,7 +12,7 @@ function modifyObject(obj: any, path: string, value: any): Record<string, any> {
     return obj;
 }
 
-export function jsonNesting(text: string, prefix = ''): string {
+export function jsonNesting(text: string): string {
     const obj = JSON.parse(text);
     const result: Record<string, any> = {};
     Object.keys(obj).forEach(key => {

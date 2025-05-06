@@ -177,7 +177,7 @@ async function excute() {
   }
 }
 
-editor1.onDidChangeModelContent((e) => {
+editor1.onDidChangeModelContent(() => {
   excute();
 });
 </script>

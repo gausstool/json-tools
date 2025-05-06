@@ -3,12 +3,13 @@ function parseJSON(obj: any): Record<string, any> | string {
         try {
             return parseJSON(JSON.parse(obj));
         } catch (error) {
+            console.error(error);
             return obj;
         }
     } else if (Array.isArray(obj)) {
         return obj.map(item => parseJSON(item));
     } else if (typeof obj === 'object' && obj !== null) {
-        for (let key in obj) {
+        for (const key in obj) {
             obj[key] = parseJSON(obj[key]);
         }
         return obj;
