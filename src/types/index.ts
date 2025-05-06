@@ -4,6 +4,8 @@ export enum EnumTools {
     JSON_PARSE_DEEP = "json-parse-deep",
     JSON_SORT = "json-sort",
     JSON_TO_TS = "json-to-ts",
+    JSON_TO_YAML = "json-to-yaml",
+    YAML_TO_JSON = "yaml-to-json",
     JSON_FlAT = "json-flat",
     JSON_NESTING = "json-nesting",
     JSON_TO_CSV = "json-to-csv",

@@ -2,7 +2,7 @@
   <div id="editor-double"></div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import localforage from 'localforage';
 import { onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -17,7 +17,7 @@ import {
   disposeEditorList
 } from '../editor/editor';
 import { processContent } from '../transform';
-import { EnumTools } from '../types';
+import { EnumTools } from '@/types';
 
 const codeSize = `计算字符串所占的内存字节数，使用UTF-8的编码方式计算`;
 const codeJsonCompress = `{
@@ -41,10 +41,29 @@ const codeJsonNesting = `{
   "c1.a2": 3
 }`;
 
+const codeJsonYaml = `{
+  "name": "张三",
+  "age": 30,
+  "address": {
+    "street": "人民路",
+    "city": "北京"
+  },
+  "hobbies": ["阅读", "游泳"]
+}`;
+
+const codeYamlJson = `name: 张三
+age: 30
+address:
+  street: 人民路
+  city: 北京
+hobbies:
+  - 阅读
+  - 游泳
+`
 const code1 = ``;
 const code2 = ``;
-const model1 = createEditorModel(code1, "javascript");
-const model2 = createEditorModel(code2, "javascript");
+let model1 = createEditorModel(code1, "javascript");
+let model2 = createEditorModel(code2, "javascript");
 const $container1 = createEditorContainer();
 const $container2 = createEditorContainer();
 const editor1 = createEditorInstance($container1, model1);
@@ -62,6 +81,32 @@ async function save() {
 async function fetch() {
   const key = `code-tools-${String(route.name)}`;
   await localforage.getItem(key).then((value) => {
+
+    if (route.name == EnumTools.YAML_TO_JSON) {
+      model1 = createEditorModel('', 'yaml');
+      editor1.setModel(model1)
+      model2 = createEditorModel('', 'javascript');
+      editor2.setModel(model2)
+    } else if (route.name == EnumTools.JSON_TO_YAML) {
+      model1 = createEditorModel('', 'javascript');
+      editor1.setModel(model1)
+      model2 = createEditorModel('', 'yaml');
+      editor2.setModel(model2)
+    } else {
+      model1 = createEditorModel('', 'javascript');
+      editor1.setModel(model1)
+      model2 = createEditorModel('', 'javascript');
+      editor2.setModel(model2)
+    }
+  
+    if (route.name == EnumTools.YAML_TO_JSON) {
+      model1.setValue(value as string || codeYamlJson)
+    } 
+    if (route.name == EnumTools.JSON_TO_YAML) {
+      
+      model1.setValue(value as string || codeJsonYaml)
+    }
+
     if (route.name == 'text-size') {
       model1.setValue(value as string || codeSize)
     }
@@ -89,6 +134,7 @@ async function fetch() {
     if (route.name == 'json-nesting') {
       model1.setValue(value as string || codeJsonNesting)
     }
+    
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")
 }
@@ -118,7 +164,7 @@ async function excute() {
   const type = route.name as EnumTools; // 默认类型为 text-size
   try {
     const [value, flag] = await processContent(value1, type);
-    editor2.setValue(value as string);
+    model2.setValue(value);
     if (flag === "unrealized") {
       editorConsoleInstance.addConsole("\t[WARN]\t" + "Format Unrealized");
     }

@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import 'dotenv/config';
+import path from "path";
 
 export default defineConfig(async () => ({
   base: process.env.VITE_BASE_URL || '/',
@@ -13,6 +14,11 @@ export default defineConfig(async () => ({
   server: {
     port: 1997,
     strictPort: true,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve('src')
+    }
   },
   build: {
     outDir: process.env.VITE_BUILD_DIR || 'dist',

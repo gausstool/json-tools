@@ -8,6 +8,7 @@ import { jsonSort } from './modules/json-sort';
 import { sizeofByte } from './modules/size-of-byte';
 import { urlParse } from './modules/url-parse';
 import { jsonNesting } from './modules/json-nesting';
+import { json2yaml, yaml2json } from './modules/json-yaml';
 
 export const methodMap: Record<EnumTools, Function> = {
   "text-diff": (input: string) => input, // Placeholder for text diff function
@@ -21,6 +22,8 @@ export const methodMap: Record<EnumTools, Function> = {
   "json-nesting": jsonNesting,
   "json-to-csv": (input: string) => input, // Placeholder for JSON to CSV function
   "json-to-ts": json2ts,
+  [EnumTools.JSON_TO_YAML]: json2yaml,
+  [EnumTools.YAML_TO_JSON]: yaml2json
 }
 
 export async function processContent(input: string, type: EnumTools) {  

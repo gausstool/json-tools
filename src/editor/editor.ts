@@ -1,5 +1,6 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution";
+import 'monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution';
 
 export function createEditorModel(value: string, language: string) {
   const model = monaco.editor.createModel(value, language);

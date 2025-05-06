@@ -53,6 +53,16 @@ export const tools: ITool[] = [
     value: EnumTools.JSON_NESTING,
   },
   {
+    label: "JSON 转 YAML",
+    icon: "",
+    value: EnumTools.JSON_TO_YAML,
+  },
+  {
+    label: "YAML 转 JSON",
+    icon: "",
+    value: EnumTools.YAML_TO_JSON,
+  },
+  {
     label: "JSON 转 TypeScript",
     icon: "",
     value: EnumTools.JSON_TO_TS,

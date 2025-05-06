@@ -9,10 +9,6 @@ const routes = [
     path: "/",
     children: [
       {
-        name: EnumTools.TEXT_DIFF,
-        component: EditorDiff,
-      },
-      {
         name: EnumTools.TEXT_SIZE,
         component: EditorDouble,
       },
@@ -46,6 +42,14 @@ const routes = [
       },
       {
         name: EnumTools.JSON_NESTING,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.JSON_TO_YAML,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.YAML_TO_JSON,
         component: EditorDouble,
       }
     ].map((route) => {
