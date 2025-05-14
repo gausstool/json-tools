@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
+import { EnumTools } from "../types";
 import EditorDiff from "../views/EditorDiff.vue";
 import EditorDouble from "../views/EditorDouble.vue";
-import { EnumTools } from "../types";
 
 const routes = [
   { path: "", redirect: { name: "json-format" } },
@@ -66,7 +66,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
