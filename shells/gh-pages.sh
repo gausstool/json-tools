@@ -7,11 +7,15 @@ set -e
 echo "删除旧的构建目录..."
 rm -rf dist
 
-mkdir dist
-cp refresh.html dist/index.html
+# 构建
+npm run build
+
+# mkdir dist
+# cp refresh.html dist/index.html
 
 # 进入构建目录
 cd dist
+cp index.html 404.html
 
 # 初始化 git 仓库（如果不存在）
 if [ ! -d .git ]; then
