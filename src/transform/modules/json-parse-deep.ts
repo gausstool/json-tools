@@ -1,5 +1,5 @@
 function parseJSON(obj: any): Record<string, any> | string {
-    if (typeof obj === 'string' && obj.startsWith('{')) {
+    if (typeof obj === 'string' && (obj.startsWith('{') || obj.startsWith('['))) {
         try {
             return parseJSON(JSON.parse(obj));
         } catch (error) {
