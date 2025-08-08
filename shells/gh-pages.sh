@@ -10,9 +10,6 @@ rm -rf dist
 # 构建
 npm run build
 
-# mkdir dist
-# cp refresh.html dist/index.html
-
 # 进入构建目录
 cd dist
 cp index.html 404.html
