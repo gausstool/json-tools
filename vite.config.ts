@@ -6,10 +6,7 @@ import 'dotenv/config'
 
 export default defineConfig(async () => ({
   base: process.env.VITE_BASE_URL || '/',
-  plugins: [
-    nodePolyfills(),
-    vue(),
-  ],
+  plugins: [nodePolyfills(), vue()],
   clearScreen: false,
   server: {
     port: 1997,
@@ -22,5 +19,12 @@ export default defineConfig(async () => ({
   },
   build: {
     outDir: process.env.VITE_BUILD_DIR || 'dist',
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true, // 强制所有代码打包进一个文件
+        entryFileNames: 'assets/[name].[hash].js', // 指定输出文件名
+        assetFileNames: 'assets/[name].[hash].[ext]', // 静态资源名称（如果有的话）
+      },
+    },
   },
 }))
