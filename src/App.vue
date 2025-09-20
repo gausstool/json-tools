@@ -31,6 +31,7 @@
       <div id="console-container"></div>
     </div>
   </div>
+  <GithubBadge url="https://github.com/gausstool/json-tools"></GithubBadge>
 </template>
 
 <script lang="ts" setup>
@@ -38,6 +39,7 @@ import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { tools } from "./config";
 import editorConsoleInstance from "./editor/console";
+import GithubBadge from "./components/github-badge.vue";
 
 const isScreenshot = ref(false);
 const toggle = () => {
