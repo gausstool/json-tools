@@ -9,6 +9,7 @@ export enum EnumTools {
     JSON_FLAT = "json-flat",
     JSON_NESTING = "json-nesting",
     JSON_TO_CSV = "json-to-csv",
+    CSV_TO_JSON = "csv-to-json",
     TEXT_SIZE = "text-size",
     TEXT_DIFF = "text-diff",
     URL_PARSE = "url-parse",

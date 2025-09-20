@@ -55,6 +55,14 @@ const routes = [
       {
         name: EnumTools.YAML_TO_JSON,
         component: EditorDouble,
+      },
+      {
+        name: EnumTools.JSON_TO_CSV,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.CSV_TO_JSON,
+        component: EditorDouble,
       }
     ].map((route) => {
       return {
