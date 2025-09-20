@@ -9,6 +9,7 @@ import { sizeofByte } from './modules/size-of-byte';
 import { urlParse } from './modules/url-parse';
 import { jsonNesting } from './modules/json-nesting';
 import { json2yaml, yaml2json } from './modules/json-yaml';
+import { csv2json, json2csv } from './modules/json-csv';
 
 type ToolFunction = (input: string) => string;
 
@@ -22,7 +23,8 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_SORT]: jsonSort,
   [EnumTools.JSON_FLAT]: jsonFlat,
   [EnumTools.JSON_NESTING]: jsonNesting,
-  [EnumTools.JSON_TO_CSV]: (input: string) => input, // Placeholder for JSON to CSV function
+  [EnumTools.JSON_TO_CSV]:  json2csv, // Placeholder for JSON to CSV function
+  [EnumTools.CSV_TO_JSON]: csv2json,
   [EnumTools.JSON_TO_TS]: json2ts,
   [EnumTools.JSON_TO_YAML]: json2yaml,
   [EnumTools.YAML_TO_JSON]: yaml2json,

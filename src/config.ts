@@ -63,8 +63,18 @@ export const tools: ITool[] = [
     value: EnumTools.YAML_TO_JSON,
   },
   {
+    label: "JSON 转 CSV",
+    icon: "",
+    value: EnumTools.JSON_TO_CSV,
+  },
+  {
+    label: "CSV 转 JSON",
+    icon: "",
+    value: EnumTools.CSV_TO_JSON,
+  },
+    {
     label: "JSON 转 TypeScript",
     icon: "",
     value: EnumTools.JSON_TO_TS,
-  }
+  },
 ];

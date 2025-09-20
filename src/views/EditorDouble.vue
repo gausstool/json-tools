@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div id="editor-double"></div>
 </template>
 
@@ -60,6 +60,18 @@ hobbies:
   - 阅读
   - 游泳
 `
+const codeJsonCsv = `[{
+  "a1": 1,
+  "a2": 2,
+  "a3": 3
+}]`
+
+const codeCsvJson = `Column 1,Column 2,Column 3,Column 4
+1-1,1-2,1-3,1-4
+2-1,2-2,2-3,2-4
+3-1,3-2,3-3,3-4
+4,5,6,7`
+
 const code1 = ``;
 const code2 = ``;
 let model1 = createEditorModel(code1, "javascript");
@@ -134,7 +146,12 @@ async function fetch() {
     if (route.name == 'json-nesting') {
       model1.setValue(value as string || codeJsonNesting)
     }
-    
+    if (route.name == 'json-to-csv') {
+      model1.setValue(value as string || codeJsonCsv)
+    }
+    if (route.name == 'csv-to-json') {
+      model1.setValue(value as string || codeCsvJson)
+    }
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")
 }
