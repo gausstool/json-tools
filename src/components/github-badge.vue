@@ -16,6 +16,7 @@ defineProps({
 <style scoped>
 .github-badge {
   position: fixed;
+  z-index: 10000;
   right: 0;
   bottom: 0;
   width: 80px;
