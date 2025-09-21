@@ -7,7 +7,6 @@
           <i class="icon yellow"></i>
           <i class="icon green"></i>
         </span>
-        <span v-if="!isScreenshot" class="app-tips-text">--ignore-certificate-errors --force-renderer-accessibility</span>
       </div>
       <div class="app-main">
         <div class="menu-container">
@@ -61,68 +60,12 @@ const onRadioClick = async (value: string) => {
 .app-container {
   width: 100%;
   height: 100%;
-  padding: 8px;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 8px;
-}
-
-@media screen and (min-width: 960px) {
-  .app-container {
-    width: 800px;
-    height: 450px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .app-container {
-    width: 960px;
-    height: 480px;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .app-container {
-    width: 1200px;
-    height: 600px;
-  }
-}
-
-@media screen and (min-width: 1366px) {
-  .app-container {
-    width: 1280px;
-    height: 640px;
-  }
-}
-
-@media screen and (min-width: 1536px) {
-  .app-container {
-    width: 1366px;
-    height: 678px;
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  .app-container {
-    width: 1440px;
-    height: 720px;
-  }
-}
-
-@media screen and (min-width: 1920px) {
-  .app-container {
-    width: 1600px;
-    height: 800px;
-  }
 }
 
 .app-home {
   width: 100%;
   height: 100%;
   background-color: #272822;
-  border-radius: 8px;
   overflow: hidden;
   box-shadow: 1px 1px 10px #1e1e1e;
   overflow: hidden;
@@ -193,13 +136,12 @@ const onRadioClick = async (value: string) => {
 #console-container {
   position: absolute;
   z-index: 9999;
-  left: 8px;
-  bottom: 8px;
-  right: 8px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
   height: var(--terminal-height);
   background-color: #1e1e1e;
   border-top: 1px solid #393939;
-  border-radius: 0 0 8px 8px;
   overflow: hidden;
 }
 
