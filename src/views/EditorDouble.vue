@@ -72,6 +72,21 @@ const codeCsvJson = `Column 1,Column 2,Column 3,Column 4
 3-1,3-2,3-3,3-4
 4,5,6,7`
 
+const codeObjectJson = `{
+  a: 1,
+  b: 2,
+  c: 3
+}`
+
+const codeJson2Obj = `{
+  "a": 1,
+  "b": 2,
+  "c": 3
+}`
+
+const codeBase64Encode = `hello world`
+const codeBase64Decode = `aGVsbG8gd29ybGQ=`
+
 const code1 = ``;
 const code2 = ``;
 let model1 = createEditorModel(code1, "javascript");
@@ -114,8 +129,7 @@ async function fetch() {
     if (route.name == EnumTools.YAML_TO_JSON) {
       model1.setValue(value as string || codeYamlJson)
     } 
-    if (route.name == EnumTools.JSON_TO_YAML) {
-      
+    if (route.name == EnumTools.JSON_TO_YAML) {  
       model1.setValue(value as string || codeJsonYaml)
     }
 
@@ -124,6 +138,12 @@ async function fetch() {
     }
     if (route.name == 'url-parse') {
       model1.setValue(value as string || window.location.href)
+    }
+    if (route.name == 'base64-encode') {
+      model1.setValue(value as string || codeBase64Encode)
+    }
+    if (route.name == 'base64-decode') {
+      model1.setValue(value as string || codeBase64Decode)
     }
     if (route.name == 'json-compress') {
       model1.setValue(value as string || codeJsonCompress)
@@ -151,6 +171,13 @@ async function fetch() {
     }
     if (route.name == 'csv-to-json') {
       model1.setValue(value as string || codeCsvJson)
+    }
+    
+    if (route.name == 'obj-to-json') {
+      model1.setValue(value as string || codeObjectJson)
+    }
+    if (route.name == 'json-to-obj') {
+      model1.setValue(value as string || codeJson2Obj)
     }
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")

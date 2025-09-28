@@ -23,6 +23,16 @@ export const tools: ITool[] = [
     value: EnumTools.URL_PARSE,
   },
   {
+    label: "Base64 编码",
+    icon: "",
+    value: EnumTools.BASE64_ENCODE,
+  },
+  {
+    label: "Base64 解码",
+    icon: "",
+    value: EnumTools.BASE64_DECODE,
+  },
+  {
     label: "JSON 压缩",
     icon: "",
     value: EnumTools.JSON_COMPRESS,
@@ -53,6 +63,16 @@ export const tools: ITool[] = [
     value: EnumTools.JSON_NESTING,
   },
   {
+    label: "Object 转 JSON",
+    icon: "",
+    value: EnumTools.OBJ_TO_JSON,
+  },
+  {
+    label: "JSON 转 Object",
+    icon: "",
+    value: EnumTools.JSON_TO_OBJ,
+  },
+  {
     label: "JSON 转 YAML",
     icon: "",
     value: EnumTools.JSON_TO_YAML,
@@ -77,4 +97,5 @@ export const tools: ITool[] = [
     icon: "",
     value: EnumTools.JSON_TO_TS,
   },
+
 ];

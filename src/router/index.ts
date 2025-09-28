@@ -4,7 +4,7 @@ import EditorDiff from "../views/EditorDiff.vue";
 import EditorDouble from "../views/EditorDouble.vue";
 
 const routes = [
-  { path: "", redirect: { name: "json-format" } },
+  { path: "", redirect: { name: EnumTools.JSON_FORMAT } },
   {
     path: "/",
     children: [
@@ -18,6 +18,14 @@ const routes = [
       },
       {
         name: EnumTools.URL_PARSE,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.BASE64_ENCODE,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.BASE64_DECODE,
         component: EditorDouble,
       },
       {
@@ -62,6 +70,14 @@ const routes = [
       },
       {
         name: EnumTools.CSV_TO_JSON,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.OBJ_TO_JSON,
+        component: EditorDouble,
+      },
+      {
+        name: EnumTools.JSON_TO_OBJ,
         component: EditorDouble,
       }
     ].map((route) => {
