@@ -63,6 +63,10 @@ const routes = [
       {
         name: EnumTools.CSV_TO_JSON,
         component: EditorDouble,
+      },
+      {
+        name: EnumTools.OBJ_TO_JSON,
+        component: EditorDouble,
       }
     ].map((route) => {
       return {

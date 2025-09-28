@@ -77,4 +77,9 @@ export const tools: ITool[] = [
     icon: "",
     value: EnumTools.JSON_TO_TS,
   },
+  {
+    label: "Object 转 JSON",
+    icon: "",
+    value: EnumTools.OBJ_TO_JSON,
+  },
 ];

@@ -72,6 +72,12 @@ const codeCsvJson = `Column 1,Column 2,Column 3,Column 4
 3-1,3-2,3-3,3-4
 4,5,6,7`
 
+const codeObjectJson = `{
+  a: 1,
+  b: 2,
+  c: 3
+}`
+
 const code1 = ``;
 const code2 = ``;
 let model1 = createEditorModel(code1, "javascript");
@@ -151,6 +157,10 @@ async function fetch() {
     }
     if (route.name == 'csv-to-json') {
       model1.setValue(value as string || codeCsvJson)
+    }
+    
+    if (route.name == 'obj-to-json') {
+      model1.setValue(value as string || codeObjectJson)
     }
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")

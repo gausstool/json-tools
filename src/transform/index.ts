@@ -10,6 +10,7 @@ import { urlParse } from './modules/url-parse';
 import { jsonNesting } from './modules/json-nesting';
 import { json2yaml, yaml2json } from './modules/json-yaml';
 import { csv2json, json2csv } from './modules/json-csv';
+import { object2Json } from './modules/json-object';
 
 type ToolFunction = (input: string) => string;
 
@@ -28,6 +29,7 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_TO_TS]: json2ts,
   [EnumTools.JSON_TO_YAML]: json2yaml,
   [EnumTools.YAML_TO_JSON]: yaml2json,
+  [EnumTools.OBJ_TO_JSON]: object2Json,
 };
 
 export async function processContent(input: string, type: EnumTools) {  
