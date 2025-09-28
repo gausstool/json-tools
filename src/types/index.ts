@@ -14,4 +14,5 @@ export enum EnumTools {
     TEXT_DIFF = "text-diff",
     URL_PARSE = "url-parse",
     OBJ_TO_JSON = "obj-to-json",
+    JSON_TO_OBJ = "json-to-obj",
 }

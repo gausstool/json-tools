@@ -78,6 +78,12 @@ const codeObjectJson = `{
   c: 3
 }`
 
+const codeJson2Obj = `{
+  "a": 1,
+  "b": 2,
+  "c": 3
+}`
+
 const code1 = ``;
 const code2 = ``;
 let model1 = createEditorModel(code1, "javascript");
@@ -161,6 +167,9 @@ async function fetch() {
     
     if (route.name == 'obj-to-json') {
       model1.setValue(value as string || codeObjectJson)
+    }
+    if (route.name == 'json-to-obj') {
+      model1.setValue(value as string || codeJson2Obj)
     }
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")

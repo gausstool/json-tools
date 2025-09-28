@@ -53,6 +53,16 @@ export const tools: ITool[] = [
     value: EnumTools.JSON_NESTING,
   },
   {
+    label: "Object 转 JSON",
+    icon: "",
+    value: EnumTools.OBJ_TO_JSON,
+  },
+  {
+    label: "JSON 转 Object",
+    icon: "",
+    value: EnumTools.JSON_TO_OBJ,
+  },
+  {
     label: "JSON 转 YAML",
     icon: "",
     value: EnumTools.JSON_TO_YAML,
@@ -77,9 +87,5 @@ export const tools: ITool[] = [
     icon: "",
     value: EnumTools.JSON_TO_TS,
   },
-  {
-    label: "Object 转 JSON",
-    icon: "",
-    value: EnumTools.OBJ_TO_JSON,
-  },
+
 ];

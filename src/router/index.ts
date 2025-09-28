@@ -67,6 +67,10 @@ const routes = [
       {
         name: EnumTools.OBJ_TO_JSON,
         component: EditorDouble,
+      },
+      {
+        name: EnumTools.JSON_TO_OBJ,
+        component: EditorDouble,
       }
     ].map((route) => {
       return {
