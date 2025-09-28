@@ -11,6 +11,8 @@ import { jsonNesting } from './modules/json-nesting';
 import { json2yaml, yaml2json } from './modules/json-yaml';
 import { csv2json, json2csv } from './modules/json-csv';
 import { json2Object, object2Json } from './modules/json-object';
+import { encodeBase64 } from './modules/base64';
+import { decodeBase64 } from './modules/base64';
 
 type ToolFunction = (input: string) => string;
 
@@ -31,6 +33,8 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.YAML_TO_JSON]: yaml2json,
   [EnumTools.OBJ_TO_JSON]: object2Json,
   [EnumTools.JSON_TO_OBJ]: json2Object,
+  [EnumTools.BASE64_ENCODE]: encodeBase64,
+  [EnumTools.BASE64_DECODE]: decodeBase64,
 };
 
 export async function processContent(input: string, type: EnumTools) {  

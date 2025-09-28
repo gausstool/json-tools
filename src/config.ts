@@ -23,6 +23,16 @@ export const tools: ITool[] = [
     value: EnumTools.URL_PARSE,
   },
   {
+    label: "Base64 编码",
+    icon: "",
+    value: EnumTools.BASE64_ENCODE,
+  },
+  {
+    label: "Base64 解码",
+    icon: "",
+    value: EnumTools.BASE64_DECODE,
+  },
+  {
     label: "JSON 压缩",
     icon: "",
     value: EnumTools.JSON_COMPRESS,
