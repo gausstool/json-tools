@@ -11,16 +11,17 @@
       <div class="app-main">
         <div class="menu-container">
           <div class="g-menu second-level">
-            <div
-              class="g-menu-item"
-              tabindex="0"
-              :class="{ 'is-active': item.value === route.name }"
-              v-for="item in tools"
-              :key="item.value"
-              @click="onRadioClick(item.value)"
-            >
-              <span class="label">{{ item.label }}</span>
-            </div>
+            <template v-for="item in tools" :key="item.value">
+              <div v-if="item.space" class="g-menu-item is-space"></div>
+              <div
+                v-else
+                class="g-menu-item"
+                :class="{ 'is-active': item.value === route.name }"
+                @click="onRadioClick(item.value)"
+              >
+                <span class="label">{{ item.label }}</span>
+              </div>
+            </template>
           </div>
         </div>
         <div class="tool-container">
@@ -34,18 +35,18 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { tools } from "./config";
-import editorConsoleInstance from "./editor/console";
-import GithubBadge from "./components/github-badge.vue";
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { tools } from './config';
+import editorConsoleInstance from './editor/console';
+import GithubBadge from './components/github-badge.vue';
 
 const isScreenshot = ref(false);
 const toggle = () => {
   isScreenshot.value = !isScreenshot.value;
 };
 onMounted(() => {
-  const $parent = document.getElementById("console-container") as HTMLElement;
+  const $parent = document.getElementById('console-container') as HTMLElement;
   editorConsoleInstance.mount($parent);
 });
 

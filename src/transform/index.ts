@@ -13,6 +13,8 @@ import { csv2json, json2csv } from './modules/json-csv';
 import { json2Object, object2Json } from './modules/json-object';
 import { encodeBase64 } from './modules/base64';
 import { decodeBase64 } from './modules/base64';
+import { sqlFormat } from './modules/sql-format';
+import { sqlCompress } from './modules/sql-compress';
 
 type ToolFunction = (input: string) => string;
 
@@ -35,6 +37,8 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_TO_OBJ]: json2Object,
   [EnumTools.BASE64_ENCODE]: encodeBase64,
   [EnumTools.BASE64_DECODE]: decodeBase64,
+  [EnumTools.SQL_FORMAT]: sqlFormat,
+  [EnumTools.SQL_COMPRESS]: sqlCompress,
 };
 
 export async function processContent(input: string, type: EnumTools) {  
@@ -47,8 +51,8 @@ export async function processContent(input: string, type: EnumTools) {
   try {
     output = methodMap[type](input)
   } catch (error) {
-    flag = "failure" + error;
-    output = 'JSON 解析失败';
+    flag = "failure";
+    output = error instanceof Error ? error.message : '处理失败';
   }  
   return [output, flag];
 }
