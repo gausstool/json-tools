@@ -84,8 +84,8 @@ const codeJson2Obj = `{
   "c": 3
 }`
 
-const codeBase64Encode = `hello world`
-const codeBase64Decode = `aGVsbG8gd29ybGQ=`
+const codeBase64Encode = `你好世界`
+const codeBase64Decode = `5L2g5aW95LiW55WM`
 const codeUrlEncode = `你好世界`
 const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`
 

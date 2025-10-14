@@ -26,8 +26,8 @@ export const tools: ITool[] = [
     order: 100,
     space: true,
   },
-  { label: 'SQL 格式化', value: EnumTools.SQL_FORMAT, component: EditorDouble, order: 101 },
-  { label: 'SQL 压缩', value: EnumTools.SQL_COMPRESS, component: EditorDouble, order: 102 },
+  { label: 'SQL 压缩', value: EnumTools.SQL_COMPRESS, component: EditorDouble, order: 101 },
+  { label: 'SQL 格式化', value: EnumTools.SQL_FORMAT, component: EditorDouble, order: 102 },
   // JSON 核心工具
   {
     label: 'JSON 核心工具',
