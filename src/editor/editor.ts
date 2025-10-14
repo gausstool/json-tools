@@ -1,6 +1,7 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import "monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution";
 import 'monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution';
+import 'monaco-editor/esm/vs/basic-languages/sql/sql.contribution';
 
 export function createEditorModel(value: string, language: string) {
   const model = monaco.editor.createModel(value, language);
@@ -57,10 +58,12 @@ export function disposeEditorList() {
 
 export function addCommandSave(
   editor: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor,
-  callback: Function
+  callback: () => void
 ) {
   editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
-    callback && callback();
+    if (callback) {
+      callback();
+    }
   });
 }
 

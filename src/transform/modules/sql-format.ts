@@ -7,6 +7,10 @@ export function sqlFormat(input: string): string {
       language: 'sql',
       tabWidth: 2,
       keywordCase: 'upper',
+      dataTypeCase: 'upper',
+      functionCase: 'lower',
+      logicalOperatorNewline: 'after',
+      expressionWidth: 120,
       linesBetweenQueries: 1,
     });
   } catch (error) {
