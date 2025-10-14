@@ -7,7 +7,7 @@ interface ITool {
   value: EnumTools | string;
   component: any; // 对应的组件
   order: number; // 排序顺序
-  space?: true;
+  space?: boolean;
 }
 
 export const tools: ITool[] = [
