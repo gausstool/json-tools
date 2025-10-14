@@ -6,7 +6,7 @@ const routes = [
   { path: '', redirect: { name: defaultTool } },
   {
     path: '/',
-    children: tools.map(tool => ({
+    children: tools.filter(tool => tool.component).map(tool => ({
       name: tool.value,
       component: tool.component,
       path: tool.value, // 使用工具名称作为路径
