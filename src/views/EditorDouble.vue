@@ -86,6 +86,8 @@ const codeJson2Obj = `{
 
 const codeBase64Encode = `hello world`
 const codeBase64Decode = `aGVsbG8gd29ybGQ=`
+const codeUrlEncode = `你好世界`
+const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`
 
 const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`
 
@@ -165,6 +167,12 @@ async function fetch() {
     }
     if (route.name == 'base64-decode') {
       model1.setValue(value as string || codeBase64Decode)
+    }
+    if (route.name == 'url-encode') {
+      model1.setValue(value as string || codeUrlEncode)
+    }
+    if (route.name == 'url-decode') {
+      model1.setValue(value as string || codeUrlDecode)
     }
     if (route.name == 'json-compress') {
       model1.setValue(value as string || codeJsonCompress)

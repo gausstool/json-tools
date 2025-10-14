@@ -11,6 +11,8 @@
 - [x] TEXT 对比
 - [x] TEXT 大小
 - [x] URL 解析
+- [x] URL 编码
+- [x] URL 解码
 - [x] Base64 编码
 - [x] Base64 解码
 

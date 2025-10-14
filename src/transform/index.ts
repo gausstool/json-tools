@@ -15,6 +15,8 @@ import { encodeBase64 } from './modules/base64';
 import { decodeBase64 } from './modules/base64';
 import { sqlFormat } from './modules/sql-format';
 import { sqlCompress } from './modules/sql-compress';
+import { urlEncode } from './modules/url';
+import { urlDecode } from './modules/url';
 
 type ToolFunction = (input: string) => string;
 
@@ -22,6 +24,8 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.TEXT_DIFF]: (input: string) => input, // Placeholder for text diff function
   [EnumTools.TEXT_SIZE]: sizeofByte,
   [EnumTools.URL_PARSE]: urlParse,
+  [EnumTools.URL_ENCODE]: urlEncode,
+  [EnumTools.URL_DECODE]: urlDecode,
   [EnumTools.JSON_COMPRESS]: jsonCompress,
   [EnumTools.JSON_FORMAT]: jsonFormat,
   [EnumTools.JSON_PARSE_DEEP]: jsonParseDeep,
