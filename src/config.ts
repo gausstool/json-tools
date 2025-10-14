@@ -15,6 +15,8 @@ export const tools: ITool[] = [
   { label: 'TEXT 对比', value: EnumTools.TEXT_DIFF, component: EditorDiff, order: 1 },
   { label: 'TEXT 大小', value: EnumTools.TEXT_SIZE, component: EditorDouble, order: 2 },
   { label: 'URL 解析', value: EnumTools.URL_PARSE, component: EditorDouble, order: 3 },
+  { label: 'URL 编码', value: EnumTools.URL_ENCODE, component: EditorDouble, order: 3.1 },
+  { label: 'URL 解码', value: EnumTools.URL_DECODE, component: EditorDouble, order: 3.2 },
   { label: 'Base64 编码', value: EnumTools.BASE64_ENCODE, component: EditorDouble, order: 4 },
   { label: 'Base64 解码', value: EnumTools.BASE64_DECODE, component: EditorDouble, order: 5 },
   {
@@ -24,8 +26,8 @@ export const tools: ITool[] = [
     order: 100,
     space: true,
   },
-  { label: 'SQL 格式化', value: EnumTools.SQL_FORMAT, component: EditorDouble, order: 101 },
-  { label: 'SQL 压缩', value: EnumTools.SQL_COMPRESS, component: EditorDouble, order: 102 },
+  { label: 'SQL 压缩', value: EnumTools.SQL_COMPRESS, component: EditorDouble, order: 101 },
+  { label: 'SQL 格式化', value: EnumTools.SQL_FORMAT, component: EditorDouble, order: 102 },
   // JSON 核心工具
   {
     label: 'JSON 核心工具',

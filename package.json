@@ -1,6 +1,6 @@
 {
   "name": "json-tools",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "author": "gausszhou",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.7",
+    "js-base64": "^3.7.8",
     "js-yaml": "^4.1.0",
     "json-ts": "^1.6.4",
     "localforage": "^1.10.0",

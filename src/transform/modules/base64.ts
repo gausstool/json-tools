@@ -1,7 +1,8 @@
+import { encode, decode } from 'js-base64'
 export function encodeBase64(input: string) {
-    return btoa(input);
+    return encode(input);
 }
 
 export function decodeBase64(input: string) {
-    return atob(input);
+    return decode(input);
 }

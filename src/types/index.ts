@@ -13,6 +13,8 @@ export enum EnumTools {
     TEXT_SIZE = "text-size",
     TEXT_DIFF = "text-diff",
     URL_PARSE = "url-parse",
+    URL_ENCODE = "url-encode",
+    URL_DECODE = "url-decode",
     OBJ_TO_JSON = "obj-to-json",
     JSON_TO_OBJ = "json-to-obj",
     BASE64_ENCODE = "base64-encode",
