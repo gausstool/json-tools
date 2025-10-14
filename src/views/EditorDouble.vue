@@ -89,6 +89,20 @@ const codeBase64Decode = `aGVsbG8gd29ybGQ=`
 
 const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`
 
+const codeSqlCompress = `SELECT 
+  id, 
+  name, 
+  email, 
+  created_at 
+FROM 
+  users 
+WHERE 
+  status = 'active' 
+  AND created_at > '2023-01-01' 
+ORDER BY 
+  created_at DESC 
+LIMIT 10;`
+
 const code1 = ``;
 const code2 = ``;
 let model1 = createEditorModel(code1, "javascript");
@@ -121,7 +135,7 @@ async function fetch() {
       editor1.setModel(model1)
       model2 = createEditorModel('', 'yaml');
       editor2.setModel(model2)
-    } else if (route.name == EnumTools.SQL_FORMAT) {
+    } else if (route.name == EnumTools.SQL_FORMAT || route.name == EnumTools.SQL_COMPRESS) {
       model1 = createEditorModel('', 'sql');
       editor1.setModel(model1)
       model2 = createEditorModel('', 'sql');
@@ -188,6 +202,9 @@ async function fetch() {
     }
     if (route.name == 'sql-format') {
       model1.setValue(value as string || codeSqlFormat)
+    }
+    if (route.name == 'sql-compress') {
+      model1.setValue(value as string || codeSqlCompress)
     }
   })
   editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")

@@ -18,4 +18,5 @@ export enum EnumTools {
     BASE64_ENCODE = "base64-encode",
     BASE64_DECODE = "base64-decode",
     SQL_FORMAT = "sql-format",
+    SQL_COMPRESS = "sql-compress",
 }

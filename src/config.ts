@@ -35,6 +35,7 @@ export const tools: ITool[] = [
 
   // SQL 相关工具
   { label: 'SQL 格式化', icon: '', value: EnumTools.SQL_FORMAT, component: EditorDouble, order: 301 },
+  { label: 'SQL 压缩', icon: '', value: EnumTools.SQL_COMPRESS, component: EditorDouble, order: 302 },
 ].sort((a, b) => a.order - b.order)
 
 // 按功能分类的工具配置
