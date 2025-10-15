@@ -76,7 +76,7 @@
 #console-container {
   position: absolute;
   z-index: 9999;
-  left: 0px;
+  left: 150px;
   bottom: 0px;
   right: 0px;
   height: var(--terminal-height);

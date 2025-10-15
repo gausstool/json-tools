@@ -14,12 +14,10 @@ export const tools: ITool[] = [
   // 文本相关工具
   { label: 'TEXT 对比', value: EnumTools.TEXT_DIFF, component: EditorDiff, order: 1 },
   { label: 'TEXT 大小', value: EnumTools.TEXT_SIZE, component: EditorDouble, order: 2 },
-  { label: 'CSP 解析', value: EnumTools.CSP_PARSE, component: EditorDouble, order: 3 },
-  { label: 'CSP 逆解析', value: EnumTools.CSP_UNPARSE, component: EditorDouble, order: 3.1 },
   { label: 'URL 解析', value: EnumTools.URL_PARSE, component: EditorDouble, order: 4 },
   { label: 'URL 编码', value: EnumTools.URL_ENCODE, component: EditorDouble, order: 6 },
   { label: 'URL 解码', value: EnumTools.URL_DECODE, component: EditorDouble, order: 7 },
-  { label: 'Base64 编码', value: EnumTools.BASE64_ENCODE, component: EditorDouble, order: 8 },  
+  { label: 'Base64 编码', value: EnumTools.BASE64_ENCODE, component: EditorDouble, order: 8 },
   { label: 'Base64 解码', value: EnumTools.BASE64_DECODE, component: EditorDouble, order: 9 },
   {
     label: 'SQL 相关工具',
@@ -60,6 +58,17 @@ export const tools: ITool[] = [
   { label: 'JSON 转 CSV', value: EnumTools.JSON_TO_CSV, component: EditorDouble, order: 305 },
   { label: 'CSV 转 JSON', value: EnumTools.CSV_TO_JSON, component: EditorDouble, order: 306 },
 
+  {
+    label: '请求相关工具',
+    value: '',
+    component: EditorDouble,
+    order: 400,
+    space: true,
+  },
+  { label: 'CSP 解析', value: EnumTools.CSP_PARSE, component: EditorDouble, order: 401 },
+  { label: 'CSP 逆解析', value: EnumTools.CSP_UNPARSE, component: EditorDouble, order: 402 },
+  { label: 'HTTP 缓存解读', value: EnumTools.HTTP_CACHE_ANALYZE, component: EditorDouble, order: 403 },
+  { label: 'HTTP 跨域解读', value: EnumTools.HTTP_CORS_ANALYZE, component: EditorDouble, order: 404 },
 ].sort((a, b) => a.order - b.order);
 
 // 按功能分类的工具配置

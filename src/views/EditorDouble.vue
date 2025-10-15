@@ -98,6 +98,20 @@ const codeCspUnparse = `{
   "form-action": ["'self'"]
 }`
 
+const codeHttpCacheAnalyze = `Content-Type: text/html
+Content-Length: 1024
+Date: Tue, 22 Feb 2022 22:22:22 GMT
+Cache-Control: max-age=604800`
+
+const codeHttpCorsAnalyze = `Content-Type: application/json
+Content-Length: 123
+Access-Control-Allow-Origin: https://example.com
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: X-Custom-Header, X-Another-Header
+Access-Control-Max-Age: 86400`
+
 const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`
 
 const codeSqlCompress = `SELECT 
@@ -188,6 +202,12 @@ async function fetch() {
     }
     if (route.name == 'csp-unparse') {
       model1.setValue(value as string || codeCspUnparse)
+    }
+    if (route.name == 'http-cache-analyze') {
+      model1.setValue(value as string || codeHttpCacheAnalyze)
+    }
+    if (route.name == 'http-cors-analyze') {
+      model1.setValue(value as string || codeHttpCorsAnalyze)
     }
     if (route.name == 'json-compress') {
       model1.setValue(value as string || codeJsonCompress)
