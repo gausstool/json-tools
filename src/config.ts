@@ -15,6 +15,7 @@ export const tools: ITool[] = [
   { label: 'TEXT 对比', value: EnumTools.TEXT_DIFF, component: EditorDiff, order: 1 },
   { label: 'TEXT 大小', value: EnumTools.TEXT_SIZE, component: EditorDouble, order: 2 },
   { label: 'CSP 解析', value: EnumTools.CSP_PARSE, component: EditorDouble, order: 3 },
+  { label: 'CSP 逆解析', value: EnumTools.CSP_UNPARSE, component: EditorDouble, order: 3.1 },
   { label: 'URL 解析', value: EnumTools.URL_PARSE, component: EditorDouble, order: 4 },
   { label: 'URL 编码', value: EnumTools.URL_ENCODE, component: EditorDouble, order: 6 },
   { label: 'URL 解码', value: EnumTools.URL_DECODE, component: EditorDouble, order: 7 },

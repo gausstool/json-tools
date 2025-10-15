@@ -18,6 +18,7 @@ import { sqlCompress } from './modules/sql-compress';
 import { urlEncode } from './modules/url';
 import { urlDecode } from './modules/url';
 import { cspParse } from './modules/csp-parse';
+import { cspUnparse } from './modules/csp-unparse';
 
 type ToolFunction = (input: string) => string;
 
@@ -28,6 +29,7 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.URL_ENCODE]: urlEncode,
   [EnumTools.URL_DECODE]: urlDecode,
   [EnumTools.CSP_PARSE]: cspParse,
+  [EnumTools.CSP_UNPARSE]: cspUnparse,
   [EnumTools.JSON_COMPRESS]: jsonCompress,
   [EnumTools.JSON_FORMAT]: jsonFormat,
   [EnumTools.JSON_PARSE_DEEP]: jsonParseDeep,
