@@ -88,6 +88,7 @@ const codeBase64Encode = `你好世界`
 const codeBase64Decode = `5L2g5aW95LiW55WM`
 const codeUrlEncode = `你好世界`
 const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`
+const codeCspParse = `Content-Security-Policy: default-src 'self'; img-src 'self' example.com; script-src 'unsafe-inline' 'unsafe-eval' cdn.example.com; style-src 'self' fonts.example.com`
 
 const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`
 
@@ -173,6 +174,9 @@ async function fetch() {
     }
     if (route.name == 'url-decode') {
       model1.setValue(value as string || codeUrlDecode)
+    }
+    if (route.name == 'csp-parse') {
+      model1.setValue(value as string || codeCspParse)
     }
     if (route.name == 'json-compress') {
       model1.setValue(value as string || codeJsonCompress)
