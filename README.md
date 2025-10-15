@@ -10,8 +10,6 @@
 
 - [x] TEXT 对比
 - [x] TEXT 大小
-- [x] CSP 解析
-- [x] CSP 逆解析
 - [x] URL 解析
 - [x] URL 编码
 - [x] URL 解码
@@ -41,3 +39,10 @@
 - [x] YAML 转 JSON
 - [x] JSON 转 CSV
 - [x] CSV 转 JSON
+
+### 请求相关工具
+
+- [x] CSP 解析
+- [x] CSP 逆解析
+- [x] HTTP 缓存解读
+- [x] HTTP 跨域解读

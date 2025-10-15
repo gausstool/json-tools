@@ -19,6 +19,8 @@ import { urlEncode } from './modules/url';
 import { urlDecode } from './modules/url';
 import { cspParse } from './modules/csp-parse';
 import { cspUnparse } from './modules/csp-unparse';
+import { httpCacheAnalyze } from './modules/http-cache-analyze';
+import { httpCorsAnalyze } from './modules/http-cors-analyze';
 
 type ToolFunction = (input: string) => string;
 
@@ -30,6 +32,8 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.URL_DECODE]: urlDecode,
   [EnumTools.CSP_PARSE]: cspParse,
   [EnumTools.CSP_UNPARSE]: cspUnparse,
+  [EnumTools.HTTP_CACHE_ANALYZE]: httpCacheAnalyze,
+  [EnumTools.HTTP_CORS_ANALYZE]: httpCorsAnalyze,
   [EnumTools.JSON_COMPRESS]: jsonCompress,
   [EnumTools.JSON_FORMAT]: jsonFormat,
   [EnumTools.JSON_PARSE_DEEP]: jsonParseDeep,
