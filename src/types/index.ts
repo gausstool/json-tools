@@ -15,6 +15,8 @@ export enum EnumTools {
     URL_PARSE = "url-parse",
     URL_ENCODE = "url-encode",
     URL_DECODE = "url-decode",
+    CSP_PARSE = "csp-parse",
+    CSP_UNPARSE = "csp-unparse",
     OBJ_TO_JSON = "obj-to-json",
     JSON_TO_OBJ = "json-to-obj",
     BASE64_ENCODE = "base64-encode",

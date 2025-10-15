@@ -10,6 +10,8 @@
 
 - [x] TEXT 对比
 - [x] TEXT 大小
+- [x] CSP 解析
+- [x] CSP 逆解析
 - [x] URL 解析
 - [x] URL 编码
 - [x] URL 解码
