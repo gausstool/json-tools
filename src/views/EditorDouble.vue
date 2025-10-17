@@ -19,7 +19,14 @@ import {
 import { processContent } from '../transform';
 import { EnumTools } from '@/types';
 
-const codeSize = `计算字符串所占的内存字节数，使用UTF-8的编码方式计算`;
+const codeSize = `计算字符串所占的内存字节数，
+使用 UTF-8 和 UTF-16 的编码方式计算。
+UTF-8 和 UTF-16 都是 Unicode 标准的字符编码方案，
+但它们的设计选择导致了截然不同的特性和适用场景。
+UTF-8 使用 1 到 4 个字节 的变长编码来表示一个字符。核心特点：向后兼容 ASCII。
+UTF-16 使用 2 或 4 个字节 的变长编码来表示一个字符。与现有的 ASCII 基础设施不兼容。
+对于中文、日文、韩文文本，UTF-8 通常需要 3 个字节 per character，而 UTF-16 通常只需要 2 个。所以文件体积会更大。
+在绝大多数现代应用中，UTF-8 是毫无争议的赢家和默认选择。`;
 const codeJsonCompress = `{
   "foo": "bar",
   "hello": "world"
@@ -165,7 +172,12 @@ async function fetch() {
       editor1.setModel(model1)
       model2 = createEditorModel('', 'sql');
       editor2.setModel(model2)
-    } else {
+    } else if (route.name == EnumTools.TEXT_SIZE) {
+      model1 = createEditorModel('', 'text');
+      editor1.setModel(model1)
+      model2 = createEditorModel('', 'javascript');
+      editor2.setModel(model2)
+    }else {
       model1 = createEditorModel('', 'javascript');
       editor1.setModel(model1)
       model2 = createEditorModel('', 'javascript');

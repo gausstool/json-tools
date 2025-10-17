@@ -1,12 +1,14 @@
 // SQL压缩工具：将多行SQL压缩成一行
 
+import { sqlFormat } from "./sql-format";
+
 export function sqlCompress(input: string): string {
   try {
     if (!input || input.trim() === '') {
       return '';
     }
 
-    let result = input;
+    let result = sqlFormat(input);
     
     // 1. 移除块注释 /* ... */
     result = result.replace(/\/\*[\s\S]*?\*\//g, '');
