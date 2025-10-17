@@ -1,41 +1,38 @@
-export function sizeofByte (str: string, charset = 'utf-8') {
-  let total = 0
-  let charCode = 0
+export function sizeofByte(str: string) {
+  let utf8Total = 0;
+  let utf16Total = 0;
 
-  charset = charset.toLowerCase()
-
-  if (charset === 'utf-8' || charset === 'utf8') {
-    for (let i = 0, len = str.length; i < len; i++) {
-      charCode = str.codePointAt(i) as number;
-
-      if (charCode <= 0x007f) {
-        total += 1
-      } else if (charCode <= 0x07ff) {
-        total += 2
-      } else if (charCode <= 0xffff) {
-        total += 3
-      } else {
-        total += 4
-        i++
-      }
+  for (let i = 0, len = str.length; i < len; ) {
+    const charCode = str.codePointAt(i) as number;
+    
+    // 计算 UTF-8 字节数
+    if (charCode <= 0x007f) {
+      utf8Total += 1;
+    } else if (charCode <= 0x07ff) {
+      utf8Total += 2;
+    } else if (charCode <= 0xffff) {
+      utf8Total += 3;
+    } else {
+      utf8Total += 4;
     }
-  } else if (charset === 'utf-16' || charset === 'utf16') {
-    for (let i = 0, len = str.length; i < len; i++) {
-      charCode = str.codePointAt(i) as number;
 
-      if (charCode <= 0xffff) {
-        total += 2
-      } else {
-        total += 4
-        i++
-      }
+    // 计算 UTF-16 字节数
+    if (charCode <= 0xffff) {
+      utf16Total += 2;
+      i++;
+    } else {
+      utf16Total += 4;
+      i += 2;
     }
-  } else {
-    total = str.replace(/[^\x00-\xff]/g, 'aa').length
   }
 
-  return JSON.stringify({
-    chars: str.length,
-    bytes:total
-  }, null, 2)
+  return JSON.stringify(
+    {
+      chars: str.length,
+      utf8Bytes: utf8Total,
+      utf16Bytes: utf16Total,
+    },
+    null,
+    2
+  );
 }

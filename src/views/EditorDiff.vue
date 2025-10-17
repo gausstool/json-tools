@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div id="editor-diff"></div>
 </template>
 
