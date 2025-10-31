@@ -159,10 +159,8 @@ ORDER BY
   created_at DESC 
 LIMIT 10;`;
 
-const code1 = ``;
-const code2 = ``;
-let model1 = createEditorModel(code1, 'javascript');
-let model2 = createEditorModel(code2, 'javascript');
+let model1 = createEditorModel('', 'javascript');
+let model2 = createEditorModel('', 'javascript');
 const $container1 = createEditorContainer();
 const $container2 = createEditorContainer();
 const editor1 = createEditorInstance($container1, model1);

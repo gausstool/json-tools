@@ -17,19 +17,19 @@ import {
   disposeEditorList,
 } from '../editor/editor';
 
-const code1 = `// 粘贴需要进行比对的代码
+const code1Default = `// 粘贴需要进行比对的代码
 void main() {
   printf("hello, world");
 }
 `;
 
-const code2 = `// 粘贴需要进行比对的代码
+const code2Default = `// 粘贴需要进行比对的代码
 function main() { 
   console.log("Hello World!"); 
 }
 `;
-const model1 = createEditorModel(code1, 'javascript');
-const model2 = createEditorModel(code2, 'javascript');
+const model1 = createEditorModel('', 'javascript');
+const model2 = createEditorModel('', 'javascript');
 const $container1 = createEditorContainer();
 const editor1 = createEditorDiff($container1);
 
@@ -50,8 +50,8 @@ async function save() {
 async function fetch() {
   await localforage.getItem(`code-tools-${String(route.name)}`).then((value: any) => {
     const { code1 = '', code2 = '' } = value || {};
-    model1.setValue(code1);
-    model2.setValue(code2);
+    model1.setValue(code1 || code1Default);
+    model2.setValue(code2 || code2Default);
   });
   editorConsoleInstance.addConsole('\t[INFO]\t' + 'Fetch Success');
 }
