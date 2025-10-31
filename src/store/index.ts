@@ -23,7 +23,7 @@ const createDefaultTools = () => [
 export const useToolsStore = defineStore('tools', () => {
   const MAX_TOOLS = 8;
   const recentTools = ref<EnumTools[]>([]);
-  
+
   function addRecentTool(tool: EnumTools) {
     // 如果已存在，先移除再放到最前
     if (recentTools.value.includes(tool)) {
@@ -39,8 +39,8 @@ export const useToolsStore = defineStore('tools', () => {
 
   onMounted(() => {
     localforage.getItem('tools').then(list => {
-      const toolsList = getJsonSafe(list as string, createDefaultTools()) || createDefaultTools();      
-      recentTools.value = toolsList.slice(0, MAX_TOOLS) as EnumTools[];  
+      const toolsList = getJsonSafe(list as string, createDefaultTools()) || createDefaultTools();
+      recentTools.value = toolsList.slice(0, MAX_TOOLS) as EnumTools[];
     });
   });
   return { recentTools, addRecentTool };

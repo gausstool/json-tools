@@ -1,7 +1,7 @@
 import { EnumTools } from './types';
-const EditorDiff = () => import('./views/EditorDiff.vue');
-const EditorDouble = () => import('./views/EditorDouble.vue');
-const PageWelcome = () => import('./views/PageWelcome.vue');
+const EditorDiff = () => import('@/views/PageEditorDiff.vue');
+const EditorDouble = () => import('@/views/PageEditorDouble.vue');
+const PageWelcome = () => import('@/views/PageWelcome.vue');
 
 export interface ITool {
   icon?: string;

@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome-container">
+  <div class="page-welcome">
     <!-- 头部区域 -->
     <div class="welcome-header">
       <div class="welcome-title">
@@ -39,9 +39,10 @@ import { EnumTools } from '@/types';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const { recentTools, addRecentTool }  = useToolsStore();
+const { addRecentTool }  = useToolsStore();
 
 const quickActions = computed(() => {
+  const { recentTools }  = useToolsStore();
   const result: ITool[] = [];
   recentTools.forEach((tool) => {
     const toolConfig = tools.find((t) => t.value === tool);
@@ -60,7 +61,7 @@ const handleQuickAction = (action: ITool) => {
 </script>
 
 <style scoped>
-.welcome-container {
+.page-welcome {
   box-sizing: border-box;
   height: 100%;
   background: linear-gradient(135deg, #1e1e1e 0%, #2d2d30 100%);
