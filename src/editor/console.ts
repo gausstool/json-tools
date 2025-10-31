@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import { addContainer, createEditorContainer, createEditorInstance, createEditorModel } from "./editor";
+import { createEditorContainer, createEditorInstance, createEditorModel } from "./editor";
 
 class EditorConsole {
   editor: monaco.editor.IStandaloneCodeEditor;
@@ -53,7 +53,10 @@ class EditorConsole {
     this.container.parentElement!.style.display = "none";
   }
   mount(dom: HTMLElement) {
-    addContainer(dom, this.container);
+    dom.appendChild(this.container);
+  }
+  unmount() {
+    this.container.parentElement!.removeChild(this.container);
   }
 }
 

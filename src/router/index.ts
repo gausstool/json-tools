@@ -6,7 +6,17 @@ const routes = [
   { path: '', redirect: { name: defaultTool } },
   {
     path: '/',
-    children: tools.filter(tool => tool.component).map(tool => ({
+    component: () => import('@/layouts/index.vue'),
+    children: tools.filter(tool => tool.component && tool.order === 0).map(tool => ({
+      name: tool.value,
+      component: tool.component,
+      path: tool.value,
+    })),
+  },
+  {
+    path: '/',
+    component: () => import('@/layouts/console.vue'),
+    children: tools.filter(tool => tool.component && tool.order !== 0).map(tool => ({
       name: tool.value,
       component: tool.component,
       path: tool.value, // 使用工具名称作为路径

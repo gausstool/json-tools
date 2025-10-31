@@ -55,7 +55,17 @@ const codeJson2Ts = `{
     "a": 1
   }
 }`
-const codeJsonFlat = `{"a1":{"a2":1},"b1":{"a2":2},"c1":{"a2": 3}}`;
+const codeJsonFlat = `{
+  "a1": {
+    "a2": 1
+  },
+  "b1": {
+    "a2": 2
+  },
+  "c1": {
+    "a2": 3
+  }
+}`;
 const codeJsonNesting = `{
   "a1.a2": 1,
   "b1.a2": 2,

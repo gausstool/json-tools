@@ -17,8 +17,9 @@
                 v-else
                 class="g-menu-item"
                 :class="{ 'is-active': item.value === route.name }"
-                @click="onRadioClick(item.value)"
+                @click="onRadioClick(item)"
               >
+                <span class="icon">{{ item.icon }}</span>
                 <span class="label">{{ item.label }}</span>
               </div>
             </template>
@@ -28,31 +29,33 @@
           <router-view></router-view>
         </div>
       </div>
-      <div id="console-container"></div>
     </div>
   </div>
   <GithubBadge url="https://github.com/gausstool/json-tools"></GithubBadge>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import GithubBadge from '@/components/github-badge.vue';
+import { ITool, tools } from '@/config';
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { tools } from './config';
-import editorConsoleInstance from './editor/console';
-import GithubBadge from './components/github-badge.vue';
+import { EnumTools } from './types';
+import { store } from './store';
+
+const route = useRoute();
+const router = useRouter();
+const onRadioClick = async (tool: ITool) => {
+  if (tool.value === route.name) {
+    return;
+  }
+  if (tool.order !== 0) {
+    store.addTool(tool.value);
+  }
+  router.push({ name: tool.value });
+};
 
 const isScreenshot = ref(false);
 const toggle = () => {
   isScreenshot.value = !isScreenshot.value;
-};
-onMounted(() => {
-  const $parent = document.getElementById('console-container') as HTMLElement;
-  editorConsoleInstance.mount($parent);
-});
-
-const route = useRoute();
-const router = useRouter();
-const onRadioClick = async (value: string) => {
-  router.push({ name: value });
 };
 </script>
