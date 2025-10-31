@@ -1,11 +1,11 @@
 {
   "name": "json-tools",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "author": "gausszhou",
   "scripts": {
     "dev": "vite --host",
-    "build": "rm -rf dist && tsc --noEmit && vite build",
+    "build": "rm -rf dist && tsc --noEmit && vite build && cp dist/index.html dist/404.html",
     "zip": "node scripts/compress.js",
     "preview": "vite preview",
     "lint": "eslint src",

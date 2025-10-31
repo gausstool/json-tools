@@ -39,7 +39,7 @@ export const useToolsStore = defineStore('tools', () => {
 
   onMounted(() => {
     localforage.getItem('tools').then(list => {
-      const toolsList = getJsonSafe(list as string, createDefaultTools());      
+      const toolsList = getJsonSafe(list as string, createDefaultTools()) || createDefaultTools();      
       recentTools.value = toolsList.slice(0, MAX_TOOLS) as EnumTools[];  
     });
   });
