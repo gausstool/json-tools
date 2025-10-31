@@ -6,7 +6,7 @@ const routes = [
   { path: '', redirect: { name: defaultTool } },
   {
     path: '/',
-    component: () => import('@/layouts/index.vue'),
+    component: () => import('@/layouts/LayoutIndex.vue'),
     children: tools.filter(tool => tool.component && tool.order === 0).map(tool => ({
       name: tool.value,
       component: tool.component,
@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: '/',
-    component: () => import('@/layouts/console.vue'),
+    component: () => import('@/layouts/LayoutConsole.vue'),
     children: tools.filter(tool => tool.component && tool.order !== 0).map(tool => ({
       name: tool.value,
       component: tool.component,

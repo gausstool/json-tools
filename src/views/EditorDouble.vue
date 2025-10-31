@@ -14,7 +14,7 @@ import {
   createEditorContainer,
   createEditorInstance,
   createEditorModel,
-  disposeEditorList
+  disposeEditorList,
 } from '../editor/editor';
 import { processContent } from '../transform';
 import { EnumTools } from '@/types';
@@ -33,7 +33,7 @@ UTF-8 和 UTF-16 都是 Unicode 标准的字符编码方案，
 const codeJsonCompress = `{
   "foo": "bar",
   "hello": "world"
-}`
+}`;
 const codeJsonFormat = `{"foo":"bar","hello":"world"}`;
 const codeJsonParser = `{\"d\":\"{\\\"c\\\":\\\"{\\\\\\\"b\\\\\\\":\\\\\\\"{\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}\\\\\\\"}\\\"}\"}`;
 const codeJsonSort = `{
@@ -54,7 +54,7 @@ const codeJson2Ts = `{
   "test": {
     "a": 1
   }
-}`
+}`;
 const codeJsonFlat = `{
   "a1": {
     "a2": 1
@@ -90,36 +90,36 @@ address:
 hobbies:
   - 阅读
   - 游泳
-`
+`;
 const codeJsonCsv = `[{
   "a1": 1,
   "a2": 2,
   "a3": 3
-}]`
+}]`;
 
 const codeCsvJson = `Column 1,Column 2,Column 3,Column 4
 1-1,1-2,1-3,1-4
 2-1,2-2,2-3,2-4
 3-1,3-2,3-3,3-4
-4,5,6,7`
+4,5,6,7`;
 
 const codeObjectJson = `{
   a: 1,
   b: 2,
   c: 3
-}`
+}`;
 
 const codeJson2Obj = `{
   "a": 1,
   "b": 2,
   "c": 3
-}`
+}`;
 
-const codeBase64Encode = `你好世界`
-const codeBase64Decode = `5L2g5aW95LiW55WM`
-const codeUrlEncode = `你好世界`
-const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`
-const codeCspParse = `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.example.com; style-src 'self' fonts.example.com; img-src 'self' data: example.com; font-src 'self' data: fonts.example.com; form-action 'self'`
+const codeBase64Encode = `你好世界`;
+const codeBase64Decode = `5L2g5aW95LiW55WM`;
+const codeUrlEncode = `你好世界`;
+const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`;
+const codeCspParse = `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.example.com; style-src 'self' fonts.example.com; img-src 'self' data: example.com; font-src 'self' data: fonts.example.com; form-action 'self'`;
 const codeCspUnparse = `{
   "default-src": ["'self'"],
   "script-src": ["'self'","'unsafe-inline'", "'unsafe-eval'", "cdn.example.com"],
@@ -127,12 +127,12 @@ const codeCspUnparse = `{
   "img-src": ["'self'", "data:", "example.com"],
   "font-src": ["'self'", "data:", "fonts.example.com"],
   "form-action": ["'self'"]
-}`
+}`;
 
 const codeHttpCacheAnalyze = `Content-Type: text/html
 Content-Length: 1024
 Date: Tue, 22 Feb 2022 22:22:22 GMT
-Cache-Control: max-age=604800`
+Cache-Control: max-age=604800`;
 
 const codeHttpCorsAnalyze = `Content-Type: application/json
 Content-Length: 123
@@ -141,9 +141,9 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With
 Access-Control-Allow-Credentials: true
 Access-Control-Expose-Headers: X-Custom-Header, X-Another-Header
-Access-Control-Max-Age: 86400`
+Access-Control-Max-Age: 86400`;
 
-const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`
+const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`;
 
 const codeSqlCompress = `SELECT 
   id, 
@@ -157,12 +157,12 @@ WHERE
   AND created_at > '2023-01-01' 
 ORDER BY 
   created_at DESC 
-LIMIT 10;`
+LIMIT 10;`;
 
 const code1 = ``;
 const code2 = ``;
-let model1 = createEditorModel(code1, "javascript");
-let model2 = createEditorModel(code2, "javascript");
+let model1 = createEditorModel(code1, 'javascript');
+let model2 = createEditorModel(code2, 'javascript');
 const $container1 = createEditorContainer();
 const $container2 = createEditorContainer();
 const editor1 = createEditorInstance($container1, model1);
@@ -173,140 +173,139 @@ const route = useRoute();
 async function save() {
   const code1 = model1.getValue();
   const key = `code-tools-${String(route.name)}`;
-  await localforage.setItem(key, code1)
-  editorConsoleInstance.addConsole("\t[INFO]\t" + "Save Success")
+  await localforage.setItem(key, code1);
+  editorConsoleInstance.addConsole('\t[INFO]\t' + 'Save Success');
 }
 
 async function fetch() {
   const key = `code-tools-${String(route.name)}`;
-  await localforage.getItem(key).then((value) => {
-
+  await localforage.getItem(key).then(value => {
     if (route.name == EnumTools.YAML_TO_JSON) {
       model1 = createEditorModel('', 'yaml');
-      editor1.setModel(model1)
+      editor1.setModel(model1);
       model2 = createEditorModel('', 'javascript');
-      editor2.setModel(model2)
+      editor2.setModel(model2);
     } else if (route.name == EnumTools.JSON_TO_YAML) {
       model1 = createEditorModel('', 'javascript');
-      editor1.setModel(model1)
+      editor1.setModel(model1);
       model2 = createEditorModel('', 'yaml');
-      editor2.setModel(model2)
+      editor2.setModel(model2);
     } else if (route.name == EnumTools.SQL_FORMAT || route.name == EnumTools.SQL_COMPRESS) {
       model1 = createEditorModel('', 'sql');
-      editor1.setModel(model1)
+      editor1.setModel(model1);
       model2 = createEditorModel('', 'sql');
-      editor2.setModel(model2)
+      editor2.setModel(model2);
     } else if (route.name == EnumTools.TEXT_SIZE) {
       model1 = createEditorModel('', 'text');
-      editor1.setModel(model1)
+      editor1.setModel(model1);
       model2 = createEditorModel('', 'javascript');
-      editor2.setModel(model2)
-    }else {
+      editor2.setModel(model2);
+    } else {
       model1 = createEditorModel('', 'javascript');
-      editor1.setModel(model1)
+      editor1.setModel(model1);
       model2 = createEditorModel('', 'javascript');
-      editor2.setModel(model2)
+      editor2.setModel(model2);
     }
-  
+
     if (route.name == EnumTools.YAML_TO_JSON) {
-      model1.setValue(value as string || codeYamlJson)
-    } 
-    if (route.name == EnumTools.JSON_TO_YAML) {  
-      model1.setValue(value as string || codeJsonYaml)
+      model1.setValue((value as string) || codeYamlJson);
+    }
+    if (route.name == EnumTools.JSON_TO_YAML) {
+      model1.setValue((value as string) || codeJsonYaml);
     }
 
     if (route.name == 'text-size') {
-      model1.setValue(value as string || codeSize)
+      model1.setValue((value as string) || codeSize);
     }
     if (route.name == 'url-parse') {
-      model1.setValue(value as string || window.location.href)
+      model1.setValue((value as string) || window.location.href);
     }
     if (route.name == 'base64-encode') {
-      model1.setValue(value as string || codeBase64Encode)
+      model1.setValue((value as string) || codeBase64Encode);
     }
     if (route.name == 'base64-decode') {
-      model1.setValue(value as string || codeBase64Decode)
+      model1.setValue((value as string) || codeBase64Decode);
     }
     if (route.name == 'url-encode') {
-      model1.setValue(value as string || codeUrlEncode)
+      model1.setValue((value as string) || codeUrlEncode);
     }
     if (route.name == 'url-decode') {
-      model1.setValue(value as string || codeUrlDecode)
+      model1.setValue((value as string) || codeUrlDecode);
     }
     if (route.name == 'csp-parse') {
-      model1.setValue(value as string || codeCspParse)
+      model1.setValue((value as string) || codeCspParse);
     }
     if (route.name == 'csp-unparse') {
-      model1.setValue(value as string || codeCspUnparse)
+      model1.setValue((value as string) || codeCspUnparse);
     }
     if (route.name == 'http-cache-analyze') {
-      model1.setValue(value as string || codeHttpCacheAnalyze)
+      model1.setValue((value as string) || codeHttpCacheAnalyze);
     }
     if (route.name == 'http-cors-analyze') {
-      model1.setValue(value as string || codeHttpCorsAnalyze)
+      model1.setValue((value as string) || codeHttpCorsAnalyze);
     }
     if (route.name == 'json-compress') {
-      model1.setValue(value as string || codeJsonCompress)
+      model1.setValue((value as string) || codeJsonCompress);
     }
     if (route.name == 'json-format') {
-      model1.setValue(value as string || codeJsonFormat)
+      model1.setValue((value as string) || codeJsonFormat);
     }
     if (route.name == 'json-parse-deep') {
-      model1.setValue(value as string || codeJsonParser)
+      model1.setValue((value as string) || codeJsonParser);
     }
     if (route.name == 'json-sort') {
-      model1.setValue(value as string || codeJsonSort)
+      model1.setValue((value as string) || codeJsonSort);
     }
     if (route.name == 'json-to-ts') {
-      model1.setValue(value as string || codeJson2Ts)
+      model1.setValue((value as string) || codeJson2Ts);
     }
     if (route.name == 'json-flat') {
-      model1.setValue(value as string || codeJsonFlat)
+      model1.setValue((value as string) || codeJsonFlat);
     }
     if (route.name == 'json-nesting') {
-      model1.setValue(value as string || codeJsonNesting)
+      model1.setValue((value as string) || codeJsonNesting);
     }
     if (route.name == 'json-to-csv') {
-      model1.setValue(value as string || codeJsonCsv)
+      model1.setValue((value as string) || codeJsonCsv);
     }
     if (route.name == 'csv-to-json') {
-      model1.setValue(value as string || codeCsvJson)
+      model1.setValue((value as string) || codeCsvJson);
     }
-    
+
     if (route.name == 'obj-to-json') {
-      model1.setValue(value as string || codeObjectJson)
+      model1.setValue((value as string) || codeObjectJson);
     }
     if (route.name == 'json-to-obj') {
-      model1.setValue(value as string || codeJson2Obj)
+      model1.setValue((value as string) || codeJson2Obj);
     }
     if (route.name == 'sql-format') {
-      model1.setValue(value as string || codeSqlFormat)
+      model1.setValue((value as string) || codeSqlFormat);
     }
     if (route.name == 'sql-compress') {
-      model1.setValue(value as string || codeSqlCompress)
+      model1.setValue((value as string) || codeSqlCompress);
     }
-  })
-  editorConsoleInstance.addConsole("\t[INFO]\t" + "Fetch Success")
+  });
+  editorConsoleInstance.addConsole('\t[INFO]\t' + 'Fetch Success');
 }
 
 addCommandSave(editor1, async () => {
-  save()
-})
+  save();
+});
 
 onMounted(async () => {
   addEditorIntoManageList(editor1);
   addEditorIntoManageList(editor2);
-  addContainer(document.getElementById("editor-double") as HTMLElement, $container1);
-  addContainer(document.getElementById("editor-double") as HTMLElement, $container2);
-  await fetch()
+  addContainer(document.getElementById('editor-double') as HTMLElement, $container1);
+  addContainer(document.getElementById('editor-double') as HTMLElement, $container2);
+  await fetch();
 });
 
 watch(route, async () => {
-  await fetch()
+  await fetch();
 });
 
 onUnmounted(() => {
-  disposeEditorList()
+  disposeEditorList();
 });
 
 async function excute() {
@@ -315,15 +314,15 @@ async function excute() {
   try {
     const [value, flag] = await processContent(value1, type);
     model2.setValue(value);
-    if (flag === "unrealized") {
-      editorConsoleInstance.addConsole("\t[WARN]\t" + "Format Unrealized");
+    if (flag === 'unrealized') {
+      editorConsoleInstance.addConsole('\t[WARN]\t' + 'Format Unrealized');
     }
-    if (flag === "success") {
-      editorConsoleInstance.addConsole("\t[INFO]\t" + "Format Success");
+    if (flag === 'success') {
+      editorConsoleInstance.addConsole('\t[INFO]\t' + 'Format Success');
     }
   } catch (error: any) {
-    editor2.setValue("");
-    editorConsoleInstance.addConsole("\t[Error]\t" + error.message);
+    editor2.setValue('');
+    editorConsoleInstance.addConsole('\t[Error]\t' + error.message);
   }
 }
 
@@ -338,7 +337,6 @@ editor1.onDidChangeModelContent(() => {
   height: 100%;
   display: flex;
 }
-
 </style>
 
 <style>

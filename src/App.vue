@@ -39,9 +39,10 @@ import GithubBadge from '@/components/github-badge.vue';
 import { ITool, tools } from '@/config';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useToolsStore } from './store';
 import { EnumTools } from './types';
-import { store } from './store';
 
+const { addRecentTool }  = useToolsStore();
 const route = useRoute();
 const router = useRouter();
 const onRadioClick = async (tool: ITool) => {
@@ -49,7 +50,7 @@ const onRadioClick = async (tool: ITool) => {
     return;
   }
   if (tool.order !== 0) {
-    store.addTool(tool.value);
+    addRecentTool(tool.value as EnumTools);
   }
   router.push({ name: tool.value });
 };

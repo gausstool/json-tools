@@ -33,13 +33,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
-import { store } from '@/store';
-import {ITool, tools} from '@/config';
-import { computed } from 'vue';
+import { ITool, tools } from '@/config';
+import { useToolsStore } from '@/store';
 import { EnumTools } from '@/types';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 const router = useRouter();
-const recentTools = store.getTools();
+const { recentTools, addRecentTool }  = useToolsStore();
+
 const quickActions = computed(() => {
   const result: ITool[] = [];
   recentTools.forEach((tool) => {
@@ -52,7 +53,7 @@ const quickActions = computed(() => {
 })
 const handleQuickAction = (action: ITool) => {
   if (action.order !== 0) {
-    store.addTool(action.value as EnumTools);
+    addRecentTool(action.value as EnumTools);
   }
   router.push({ name: action.value as string });
 };

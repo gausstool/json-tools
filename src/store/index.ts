@@ -1,5 +1,16 @@
 import { EnumTools } from '@/types';
 import localforage from 'localforage';
+import { defineStore } from 'pinia';
+import { onMounted, ref, unref } from 'vue';
+
+function getJsonSafe<T>(json: string, defaultValue: T): T {
+  try {
+    return JSON.parse(json);
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return defaultValue;
+  }
+}
 
 const createDefaultTools = () => [
   EnumTools.JSON_COMPRESS,
@@ -9,37 +20,28 @@ const createDefaultTools = () => [
   EnumTools.JSON_TO_TS,
 ];
 
-class Store {
-  private tools: EnumTools[] = createDefaultTools();
-  maxTools = 8;
-  constructor() {
-    localforage.getItem('tools').then((tools) => {
-      const list = tools as EnumTools[] || createDefaultTools();
-      this.tools = list.slice(0, this.maxTools);
+export const useToolsStore = defineStore('tools', () => {
+  const MAX_TOOLS = 8;
+  const recentTools = ref<EnumTools[]>([]);
+  
+  function addRecentTool(tool: EnumTools) {
+    // 如果已存在，先移除再放到最前
+    if (recentTools.value.includes(tool)) {
+      recentTools.value = recentTools.value.filter(t => t !== tool);
+    } else if (recentTools.value.length >= MAX_TOOLS) {
+      // 仅在新添加时才检查长度并移除最后一项
+      recentTools.value.pop();
+    }
+    recentTools.value.unshift(tool);
+    // 持久化到本地
+    localforage.setItem('tools', JSON.stringify(unref(recentTools)));
+  }
+
+  onMounted(() => {
+    localforage.getItem('tools').then(list => {
+      const toolsList = getJsonSafe(list as string, createDefaultTools());      
+      recentTools.value = toolsList.slice(0, MAX_TOOLS) as EnumTools[];  
     });
-  }
-
-  addTool(tool: EnumTools) {
-    if (this.tools.includes(tool)) {
-      // 将该工具移动到数组开头
-      this.tools = this.tools.filter((t) => t !== tool);
-      this.tools.unshift(tool);
-      return;
-    }
-    if (this.tools.length >= this.maxTools) {
-      this.tools.pop();
-    }
-    this.tools.unshift(tool);
-    this.saveTools();
-  }
-
-  saveTools() {
-    localforage.setItem('tools', this.tools);
-  }
-
-  getTools() {
-    return this.tools;
-  }
-}
-
-export const store = new Store();
+  });
+  return { recentTools, addRecentTool };
+});
