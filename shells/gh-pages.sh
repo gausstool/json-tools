@@ -12,7 +12,6 @@ npm run build
 
 # 进入构建目录
 cd dist
-cp index.html 404.html
 
 # 初始化 git 仓库（如果不存在）
 if [ ! -d .git ]; then

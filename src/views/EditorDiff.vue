@@ -49,7 +49,7 @@ async function save() {
 
 async function fetch() {
   await localforage.getItem(`code-tools-${String(route.name)}`).then((value: any) => {
-    const { code1 = '', code2 = '' } = value;
+    const { code1 = '', code2 = '' } = value || {};
     model1.setValue(code1);
     model2.setValue(code2);
   });
