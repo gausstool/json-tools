@@ -1,4 +1,4 @@
-import { json2ts } from 'json-ts';
+const json2tsLoad = () => import('json-ts');
 import { EnumTools } from '../types';
 import { jsonCompress } from './modules/json-compress';
 import { jsonFlat } from './modules/json-flat';
@@ -22,7 +22,7 @@ import { cspUnparse } from './modules/csp-unparse';
 import { httpCacheAnalyze } from './modules/http-cache-analyze';
 import { httpCorsAnalyze } from './modules/http-cors-analyze';
 
-type ToolFunction = (input: string) => string;
+type ToolFunction = (input: string) => string | Promise<string>;
 
 export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.TEXT_DIFF]: (input: string) => input, // Placeholder for text diff function
@@ -42,7 +42,10 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_NESTING]: jsonNesting,
   [EnumTools.JSON_TO_CSV]:  json2csv, // Placeholder for JSON to CSV function
   [EnumTools.CSV_TO_JSON]: csv2json,
-  [EnumTools.JSON_TO_TS]: json2ts,
+  [EnumTools.JSON_TO_TS]: async (input: string) => {
+    const { json2ts } = await json2tsLoad();
+    return json2ts(input);
+  },
   [EnumTools.JSON_TO_YAML]: json2yaml,
   [EnumTools.YAML_TO_JSON]: yaml2json,
   [EnumTools.OBJ_TO_JSON]: object2Json,
@@ -53,7 +56,7 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.SQL_COMPRESS]: sqlCompress,
 };
 
-export async function processContent(input: string, type: EnumTools) {  
+export async function processContent(input: string, type: EnumTools) {
   if (!methodMap[type]) {
     throw new Error(`Unsupported type: ${type}`);
   }
@@ -61,11 +64,16 @@ export async function processContent(input: string, type: EnumTools) {
   let output = "";
   let flag = "success";
   try {
-    output = methodMap[type](input)
+    const result = methodMap[type](input);
+    if (result instanceof Promise) {
+      output = await result;
+    } else {
+      output = result;
+    }
   } catch (error) {
     flag = "failure";
     output = error instanceof Error ? error.message : '处理失败';
-  }  
+  }
   return [output, flag];
 }
 
