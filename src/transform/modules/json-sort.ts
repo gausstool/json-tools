@@ -1,6 +1,6 @@
 function sortObject(obj: any) {
     return Object.keys(obj).sort().reduce(function (result: any, key) {
-        result[key] = obj[key];
+        result[key] = typeof obj[key] === 'object' ? sortObject(obj[key]) : obj[key];
         return result;
     }, {});
 }

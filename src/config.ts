@@ -38,7 +38,7 @@ export const tools: ITool[] = [
   },
   { label: 'JSON 压缩', value: EnumTools.JSON_COMPRESS, component: EditorDouble, order: 201 },
   { label: 'JSON 格式化', value: EnumTools.JSON_FORMAT, component: EditorDouble, order: 202 },
-  { label: 'JSON 排序', value: EnumTools.JSON_SORT, component: EditorDouble, order: 203 },
+  { label: 'JSON 深度排序', value: EnumTools.JSON_SORT, component: EditorDouble, order: 203 },
   { label: 'JSON 深度解析', value: EnumTools.JSON_PARSE_DEEP, component: EditorDouble, order: 204 },
   { label: 'JSON 嵌套转扁平', value: EnumTools.JSON_FLAT, component: EditorDouble, order: 205 },
   { label: 'JSON 扁平转嵌套', value: EnumTools.JSON_NESTING, component: EditorDouble, order: 206 },

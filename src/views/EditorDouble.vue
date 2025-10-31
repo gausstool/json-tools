@@ -36,7 +36,18 @@ const codeJsonCompress = `{
 }`
 const codeJsonFormat = `{"foo":"bar","hello":"world"}`;
 const codeJsonParser = `{\"d\":\"{\\\"c\\\":\\\"{\\\\\\\"b\\\\\\\":\\\\\\\"{\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}\\\\\\\"}\\\"}\"}`;
-const codeJsonSort = `{"foo":"bar","hello":"world","a": 1, "d": 2, "c": 1}`;
+const codeJsonSort = `{
+  "foo": "bar",
+  "hello": "world",
+  "a": 1,
+  "d": 2,
+  "c": 1,
+  "b": {
+    "c": 3,
+    "b": 2,
+    "a": 1
+  }
+}`;
 const codeJson2Ts = `{
   "foo":"bar",
   "hello":"world",
