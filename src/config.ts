@@ -1,7 +1,7 @@
 import { EnumTools } from './types';
 const EditorDiff = () => import('./views/EditorDiff.vue');
 const EditorDouble = () => import('./views/EditorDouble.vue');
-const Welcome = () => import('./views/Welcome.vue');
+const PageWelcome = () => import('./views/PageWelcome.vue');
 
 export interface ITool {
   icon?: string;
@@ -15,7 +15,7 @@ export interface ITool {
 
 export const tools: ITool[] = [
   // 欢迎页面
-  { icon: '👋', label: '欢迎', value: 'welcome', component: Welcome, order: 0 },
+  { icon: '👋', label: '欢迎', value: 'welcome', component: PageWelcome, order: 0 },
   {
     label: '文本 相关工具',
     value: '',
