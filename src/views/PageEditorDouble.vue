@@ -1,5 +1,5 @@
 <template>
-  <div id="editor-double"></div>
+  <div class="page-editor-double" id="editor-double"></div>
 </template>
 
 <script lang="ts" setup>
@@ -328,18 +328,3 @@ editor1.onDidChangeModelContent(() => {
   excute();
 });
 </script>
-
-<style scoped>
-#editor-double {
-  width: 100%;
-  height: 100%;
-  display: flex;
-}
-</style>
-
-<style>
-#editor-double .container {
-  width: 50%;
-  height: 100%;
-}
-</style>

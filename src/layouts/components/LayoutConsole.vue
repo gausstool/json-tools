@@ -1,5 +1,5 @@
 <template>
-  <div class="console-container">
+  <div class="layout-console">
     <router-view></router-view>
     <div id="console-container"></div>
   </div>
@@ -17,8 +17,3 @@ onBeforeUnmount(() => {
   editorConsoleInstance.unmount();
 });
 </script>
-<style lang="scss" scoped>
-.console-container {
-  height: 100%;
-}
-</style>

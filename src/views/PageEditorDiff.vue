@@ -1,5 +1,5 @@
 <template>
-  <div id="editor-diff"></div>
+  <div class="page-editor-diff" id="editor-diff"></div>
 </template>
 
 <script setup lang="ts">
@@ -70,17 +70,3 @@ onUnmounted(() => {
   disposeEditorList();
 });
 </script>
-
-<style scoped>
-#editor-diff {
-  width: 100%;
-  height: 100%;
-}
-</style>
-
-<style>
-#editor-diff .container {
-  width: 100%;
-  height: 100%;
-}
-</style>
