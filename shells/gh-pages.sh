@@ -8,10 +8,13 @@ echo "删除旧的构建目录..."
 rm -rf dist
 
 # 构建
+echo "VITE_BASE_URL=/json-tools/" > .env
 npm run build
 
 # 进入构建目录
 cd dist
+cp index.html 404.html
+cp index.html mobile.html
 
 # 初始化 git 仓库（如果不存在）
 if [ ! -d .git ]; then

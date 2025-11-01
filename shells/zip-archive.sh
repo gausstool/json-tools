@@ -8,6 +8,7 @@ echo "删除旧的构建目录..."
 rm -rf dist
 
 # 构建
+echo "VITE_BASE_URL=/" > .env
 npm run build
 
 # 进入构建目录
