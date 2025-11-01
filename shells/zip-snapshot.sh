@@ -9,17 +9,17 @@ rm -rf dist
 
 # 构建
 cat << EOF > .env
-VITE_BASE_URL=/
-VITE_BUILD_DIR=dist
+VITE_BASE_URL=/apps/json-tools/
+VITE_BUILD_DIR=dist/apps/json-tools
 EOF
 npm run build
 
 # 进入构建目录
-cd dist
+cd dist/apps/json-tools
 cp index.html 404.html
 cp index.html mobile.html
 
 # 压缩
 cd -
-node scripts/archive.js
-echo "归档完成！" 
+node scripts/snapshot.js
+echo "快照完成！" 
