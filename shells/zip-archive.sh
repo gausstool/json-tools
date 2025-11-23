@@ -21,5 +21,10 @@ cp index.html mobile.html
 
 # 压缩
 cd -
+
+if [ ! -d out ]; then
+    mkdir out
+fi
+
 node scripts/archive.js
 echo "归档完成！" 
