@@ -54,8 +54,8 @@ const onRadioClick = async (tool: ITool) => {
 
 <style lang="scss">
 .layout-home {
-  width: 100%;
-  height: 100%;
+  width: calc(100vw - 100px);
+  height: calc(100vh - 100px);
   position: relative;
 
   .layout-console {
@@ -64,62 +64,6 @@ const onRadioClick = async (tool: ITool) => {
 
   .layout-no-console {
     height: 100%;
-  }
-}
-
-@media screen and (min-width: 960px) {
-  .layout-home {
-    width: 800px;
-    height: 450px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .layout-home {
-    width: 960px;
-    height: 480px;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .layout-home {
-    width: 1200px;
-    height: 600px;
-  }
-}
-
-@media screen and (min-width: 1366px) {
-  .layout-home {
-    width: 1280px;
-    height: 640px;
-  }
-}
-
-@media screen and (min-width: 1536px) {
-  .layout-home {
-    width: 1366px;
-    height: 678px;
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  .layout-home {
-    width: 1440px;
-    height: 720px;
-  }
-}
-
-@media screen and (min-width: 1920px) {
-  .layout-home {
-    width: 1600px;
-    height: 800px;
-  }
-}
-
-@media screen and (min-width: 2560px) {
-  .layout-home {
-    width: 1920px;
-    height: 960px;
   }
 }
 </style>
