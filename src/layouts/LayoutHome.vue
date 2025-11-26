@@ -54,8 +54,6 @@ const onRadioClick = async (tool: ITool) => {
 
 <style lang="scss">
 .layout-home {
-  width: calc(100vw - 100px);
-  height: calc(100vh - 100px);
   position: relative;
 
   .layout-console {
