@@ -188,16 +188,6 @@ async function fetch() {
       editor1.setModel(model1);
       model2 = createEditorModel('', 'yaml');
       editor2.setModel(model2);
-    } else if (route.name == EnumTools.SQL_FORMAT || route.name == EnumTools.SQL_COMPRESS) {
-      model1 = createEditorModel('', 'sql');
-      editor1.setModel(model1);
-      model2 = createEditorModel('', 'sql');
-      editor2.setModel(model2);
-    } else if (route.name == EnumTools.TEXT_SIZE) {
-      model1 = createEditorModel('', 'text');
-      editor1.setModel(model1);
-      model2 = createEditorModel('', 'javascript');
-      editor2.setModel(model2);
     } else {
       model1 = createEditorModel('', 'javascript');
       editor1.setModel(model1);
