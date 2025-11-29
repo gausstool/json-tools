@@ -8,10 +8,14 @@ echo "删除旧的构建目录..."
 rm -rf dist
 
 # 构建
+echo "开始配置环境变量..."
 cat << EOF > .env
 VITE_BASE_URL=/apps/json-tools/
 VITE_BUILD_DIR=dist/apps/json-tools
 EOF
+
+# 运行构建脚本
+echo "运行构建脚本..."
 npm run build
 
 # 进入构建目录
