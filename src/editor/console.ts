@@ -1,27 +1,22 @@
 import dayjs from "dayjs";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import { createEditorContainer, createEditorInstance, createEditorModel } from "./editor";
+import { createEditorState, createEditorInstance } from "./codemirror-editor";
 
 class EditorConsole {
-  editor: monaco.editor.IStandaloneCodeEditor;
+  editor: any;
   container: HTMLElement;
   isShow: boolean = true;
   constructor() {
     const code = ``;
     const language = "text/plain";
-    const model = createEditorModel(code, language);
-    this.container = createEditorContainer();
-    this.editor = createEditorInstance(this.container, model);
-    this.editor.updateOptions({
-      readOnly: true,
-      scrollBeyondLastColumn: 1,
-      renderLineHighlight:'none',
-      minimap: {
-        enabled: false, // 是否启用预览图
-      },
-      scrollbar: {
-        verticalScrollbarSize: 0
-      }
+    const state = createEditorState(code, language);
+    
+    // 创建容器
+    this.container = document.createElement('div');
+    this.container.style.height = '200px';
+    this.container.style.borderTop = '1px solid #333';
+    
+    this.editor = createEditorInstance(this.container, state, {
+      readOnly: true
     });
     this.initEvent()
   }
@@ -33,10 +28,18 @@ class EditorConsole {
     })
   }
   addConsole(message: string) {
-    const originMessage = this.editor.getValue();
+    const originMessage = this.editor.state.doc.toString();
     const now = dayjs().format("HH:mm:ss");
-    this.editor.setValue(now + message + "\n" + originMessage);
-    this.editor.revealPositionInCenter({ lineNumber: 1, column: 0 });
+    const newContent = now + message + "\n" + originMessage;
+    
+    // 创建新的编辑器状态
+    const newState = createEditorState(newContent, "text/plain");
+    this.editor.setState(newState);
+    
+    // 滚动到顶部
+    this.editor.dispatch({
+      selection: { anchor: 0, head: 0 }
+    });
   }
   toggle() {
     this.isShow = !this.isShow;
