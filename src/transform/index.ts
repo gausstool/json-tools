@@ -21,8 +21,8 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_TO_CSV]:  json2csv, // Placeholder for JSON to CSV function
   [EnumTools.CSV_TO_JSON]: csv2json,
   [EnumTools.JSON_TO_TS]: async (input: string) => {
-    const { json2ts } = await import('json-ts');
-    return json2ts(input);
+    const { Json2Ts } = await import('@gausszhou/json-to-ts');
+    return new Json2Ts().convert(input);
   },
   [EnumTools.JSON_TO_YAML]: json2yaml,
   [EnumTools.YAML_TO_JSON]: yaml2json,
