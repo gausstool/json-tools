@@ -1,34 +1,25 @@
 <template>
-  <div class="page-editor-double" id="editor-double"></div>
+  <div id="editor-double" class="page-editor-double">
+    <div ref="editor1Container" class="container editor-container"></div>
+    <div ref="editor2Container" class="container editor-container"></div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import localforage from 'localforage';
-import { onMounted, onUnmounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, onUnmounted, watch, ref } from 'vue';
+import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router';
 import editorConsoleInstance from '../editor/console';
 import {
   addCommandSave,
-  addContainer,
   addEditorIntoManageList,
-  createEditorContainer,
+  createEditorState,
   createEditorInstance,
-  createEditorModel,
   disposeEditorList,
-} from '../editor/editor';
+} from '../editor/codemirror-editor';
 import { processContent } from '../transform';
 import { EnumTools } from '@/types';
-
-const codeSize = `计算字符串所占的内存字节数，
-使用 UTF-8 和 UTF-16 的编码方式计算。
-UTF-8 和 UTF-16 都是 Unicode 标准的字符编码方案，
-但它们的设计选择导致了截然不同的特性和适用场景。
-  - UTF-8 使用 1 到 4 个字节 的变长编码来表示一个字符。核心特点：向后兼容 ASCII。
-  - UTF-16 使用 2 或 4 个字节 的变长编码来表示一个字符。核心特点：表示非 ASCII 字符通常只需要 2 个字节。
-对于 CJK 文本（中文/日文/韩文），UTF-8 通常需要 3 个字节来表示一个字符，而 UTF-16 通常只需要 2 个字节。
-对于英文文本，UTF-8 通常需要只需要 1 个字节，而 UTF-16 通常需要 2 个字节来表示一个字符。
-因此，在英文文本中，UTF-8 通常是更节省空间的选择，而在 CJK 文本中，UTF-16 通常是更节省空间的选择。
-由于 UTF-8 兼容 ASCII，因此在绝大多数现代应用中，UTF-8 是默认选择。`;
+import { EditorView } from '@codemirror/view';
 
 const codeJsonCompress = `{
   "foo": "bar",
@@ -115,177 +106,108 @@ const codeJson2Obj = `{
   "c": 3
 }`;
 
-const codeBase64Encode = `你好世界`;
-const codeBase64Decode = `5L2g5aW95LiW55WM`;
-const codeUrlEncode = `你好世界`;
-const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`;
-const codeCspParse = `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.example.com; style-src 'self' fonts.example.com; img-src 'self' data: example.com; font-src 'self' data: fonts.example.com; form-action 'self'`;
-const codeCspUnparse = `{
-  "default-src": ["'self'"],
-  "script-src": ["'self'","'unsafe-inline'", "'unsafe-eval'", "cdn.example.com"],
-  "style-src": ["'self'", "fonts.example.com"],
-  "img-src": ["'self'", "data:", "example.com"],
-  "font-src": ["'self'", "data:", "fonts.example.com"],
-  "form-action": ["'self'"]
-}`;
+const editor1Container = ref<HTMLElement>();
+const editor2Container = ref<HTMLElement>();
 
-const codeHttpCacheAnalyze = `Content-Type: text/html
-Content-Length: 1024
-Date: Tue, 22 Feb 2022 22:22:22 GMT
-Cache-Control: max-age=604800`;
+let editor1: EditorView | null = null;
+let editor2: EditorView | null = null;
+let currentLanguage1 = 'javascript';
+let currentLanguage2 = 'javascript';
 
-const codeHttpCorsAnalyze = `Content-Type: application/json
-Content-Length: 123
-Access-Control-Allow-Origin: https://example.com
-Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With
-Access-Control-Allow-Credentials: true
-Access-Control-Expose-Headers: X-Custom-Header, X-Another-Header
-Access-Control-Max-Age: 86400`;
+const route: RouteLocationNormalizedLoaded = useRoute();
 
-const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`;
-
-const codeSqlCompress = `SELECT 
-  id, 
-  name, 
-  email, 
-  created_at 
-FROM 
-  users 
-WHERE 
-  status = 'active' 
-  AND created_at > '2023-01-01' 
-ORDER BY 
-  created_at DESC 
-LIMIT 10;`;
-
-let model1 = createEditorModel('', 'javascript');
-let model2 = createEditorModel('', 'javascript');
-const $container1 = createEditorContainer();
-const $container2 = createEditorContainer();
-const editor1 = createEditorInstance($container1, model1);
-const editor2 = createEditorInstance($container2, model2, { readOnly: true }); // 第二个编辑器为只读
-
-const route = useRoute();
-
-async function save() {
-  const code1 = model1.getValue();
+async function save(): Promise<void> {
+  const code1 = editor1 ? editor1.state.doc.toString() : '';
   const key = `code-tools-${String(route.name)}`;
   await localforage.setItem(key, code1);
   editorConsoleInstance.addConsole('\t[INFO]\t' + 'Save Success');
 }
 
-async function fetch() {
+async function fetch(): Promise<void> {
   const key = `code-tools-${String(route.name)}`;
   await localforage.getItem(key).then(value => {
+    // 根据路由设置语言
     if (route.name == EnumTools.YAML_TO_JSON) {
-      model1 = createEditorModel('', 'yaml');
-      editor1.setModel(model1);
-      model2 = createEditorModel('', 'javascript');
-      editor2.setModel(model2);
+      currentLanguage1 = 'yaml';
+      currentLanguage2 = 'javascript';
     } else if (route.name == EnumTools.JSON_TO_YAML) {
-      model1 = createEditorModel('', 'javascript');
-      editor1.setModel(model1);
-      model2 = createEditorModel('', 'yaml');
-      editor2.setModel(model2);
+      currentLanguage1 = 'javascript';
+      currentLanguage2 = 'yaml';
     } else {
-      model1 = createEditorModel('', 'javascript');
-      editor1.setModel(model1);
-      model2 = createEditorModel('', 'javascript');
-      editor2.setModel(model2);
+      currentLanguage1 = 'javascript';
+      currentLanguage2 = 'javascript';
     }
+
+    // 设置内容
+    let initialContent = '';
 
     if (route.name == EnumTools.YAML_TO_JSON) {
-      model1.setValue((value as string) || codeYamlJson);
-    }
-    if (route.name == EnumTools.JSON_TO_YAML) {
-      model1.setValue((value as string) || codeJsonYaml);
-    }
-
-    if (route.name == 'text-size') {
-      model1.setValue((value as string) || codeSize);
-    }
-    if (route.name == 'url-parse') {
-      model1.setValue((value as string) || window.location.href);
-    }
-    if (route.name == 'base64-encode') {
-      model1.setValue((value as string) || codeBase64Encode);
-    }
-    if (route.name == 'base64-decode') {
-      model1.setValue((value as string) || codeBase64Decode);
-    }
-    if (route.name == 'url-encode') {
-      model1.setValue((value as string) || codeUrlEncode);
-    }
-    if (route.name == 'url-decode') {
-      model1.setValue((value as string) || codeUrlDecode);
-    }
-    if (route.name == 'csp-parse') {
-      model1.setValue((value as string) || codeCspParse);
-    }
-    if (route.name == 'csp-unparse') {
-      model1.setValue((value as string) || codeCspUnparse);
-    }
-    if (route.name == 'http-cache-analyze') {
-      model1.setValue((value as string) || codeHttpCacheAnalyze);
-    }
-    if (route.name == 'http-cors-analyze') {
-      model1.setValue((value as string) || codeHttpCorsAnalyze);
-    }
-    if (route.name == 'json-compress') {
-      model1.setValue((value as string) || codeJsonCompress);
-    }
-    if (route.name == 'json-format') {
-      model1.setValue((value as string) || codeJsonFormat);
-    }
-    if (route.name == 'json-parse-deep') {
-      model1.setValue((value as string) || codeJsonParser);
-    }
-    if (route.name == 'json-sort') {
-      model1.setValue((value as string) || codeJsonSort);
-    }
-    if (route.name == 'json-to-ts') {
-      model1.setValue((value as string) || codeJson2Ts);
-    }
-    if (route.name == 'json-flat') {
-      model1.setValue((value as string) || codeJsonFlat);
-    }
-    if (route.name == 'json-nesting') {
-      model1.setValue((value as string) || codeJsonNesting);
-    }
-    if (route.name == 'json-to-csv') {
-      model1.setValue((value as string) || codeJsonCsv);
-    }
-    if (route.name == 'csv-to-json') {
-      model1.setValue((value as string) || codeCsvJson);
+      initialContent = (value as string) || codeYamlJson;
+    } else if (route.name == EnumTools.JSON_TO_YAML) {
+      initialContent = (value as string) || codeJsonYaml;
+    } else if (route.name == EnumTools.JSON_COMPRESS) {
+      initialContent = (value as string) || codeJsonCompress;
+    } else if (route.name == EnumTools.JSON_FORMAT) {
+      initialContent = (value as string) || codeJsonFormat;
+    } else if (route.name == EnumTools.JSON_PARSE_DEEP) {
+      initialContent = (value as string) || codeJsonParser;
+    } else if (route.name == EnumTools.JSON_SORT) {
+      initialContent = (value as string) || codeJsonSort;
+    } else if (route.name == EnumTools.JSON_TO_TS) {
+      initialContent = (value as string) || codeJson2Ts;
+    } else if (route.name == EnumTools.JSON_FLAT) {
+      initialContent = (value as string) || codeJsonFlat;
+    } else if (route.name == EnumTools.JSON_NESTING) {
+      initialContent = (value as string) || codeJsonNesting;
+    } else if (route.name == EnumTools.JSON_TO_CSV) {
+      initialContent = (value as string) || codeJsonCsv;
+    } else if (route.name == EnumTools.CSV_TO_JSON) {
+      initialContent = (value as string) || codeCsvJson;
+    } else if (route.name == EnumTools.OBJ_TO_JSON) {
+      initialContent = (value as string) || codeObjectJson;
+    } else if (route.name == EnumTools.JSON_TO_OBJ) {
+      initialContent = (value as string) || codeJson2Obj;
     }
 
-    if (route.name == 'obj-to-json') {
-      model1.setValue((value as string) || codeObjectJson);
-    }
-    if (route.name == 'json-to-obj') {
-      model1.setValue((value as string) || codeJson2Obj);
-    }
-    if (route.name == 'sql-format') {
-      model1.setValue((value as string) || codeSqlFormat);
-    }
-    if (route.name == 'sql-compress') {
-      model1.setValue((value as string) || codeSqlCompress);
+    // 设置编辑器内容
+    if (editor1) {
+      const newState = createEditorState(initialContent, currentLanguage1);
+      editor1.setState(newState);
     }
   });
   editorConsoleInstance.addConsole('\t[INFO]\t' + 'Fetch Success');
+  excute();
 }
 
-addCommandSave(editor1, async () => {
-  save();
-});
+const handleChange = () => {
+  excute();
+};
 
 onMounted(async () => {
+  const state1 = createEditorState('', currentLanguage1);
+  const state2 = createEditorState('', currentLanguage2);
+  if (!editor1Container.value || !editor2Container.value) return;
+  editor1 = createEditorInstance(editor1Container.value, state1);
+  editor2 = createEditorInstance(editor2Container.value, state2, { readOnly: true });
+
   addEditorIntoManageList(editor1);
   addEditorIntoManageList(editor2);
-  addContainer(document.getElementById('editor-double') as HTMLElement, $container1);
-  addContainer(document.getElementById('editor-double') as HTMLElement, $container2);
   await fetch();
+  excute();
+
+  addCommandSave(editor1, async () => {
+    save();
+  });
+
+  // 使用 DOM 事件监听变化
+  editor1.dom.addEventListener('input', handleChange);
+});
+
+// 清理函数
+onUnmounted(() => {
+  if (editor1) {
+    editor1.dom.removeEventListener('input', handleChange);
+  }
 });
 
 watch(route, async () => {
@@ -296,12 +218,15 @@ onUnmounted(() => {
   disposeEditorList();
 });
 
-async function excute() {
-  const value1 = editor1.getValue();
-  const type = route.name as EnumTools; // 默认类型为 text-size
+async function excute(): Promise<void> {
+  if (!editor1) return;
+  const value1 = editor1.state.doc.toString();
+  const type = route.name as EnumTools;
   try {
     const [value, flag] = await processContent(value1, type);
-    model2.setValue(value);
+    const newState = createEditorState(value, currentLanguage2);
+    editor2?.setState(newState);
+
     if (flag === 'unrealized') {
       editorConsoleInstance.addConsole('\t[WARN]\t' + 'Format Unrealized');
     }
@@ -309,12 +234,9 @@ async function excute() {
       editorConsoleInstance.addConsole('\t[INFO]\t' + 'Format Success');
     }
   } catch (error: any) {
-    editor2.setValue('');
+    const newState = createEditorState('', currentLanguage2);
+    editor2?.setState(newState);
     editorConsoleInstance.addConsole('\t[Error]\t' + error.message);
   }
 }
-
-editor1.onDidChangeModelContent(() => {
-  excute();
-});
 </script>
