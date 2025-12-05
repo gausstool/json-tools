@@ -34,7 +34,7 @@ class EditorConsole {
   }
   addConsole(message: string) {
     const originMessage = this.editor.getValue();
-    const now = dayjs().format("hh:mm:ss");
+    const now = dayjs().format("HH:mm:ss");
     this.editor.setValue(now + message + "\n" + originMessage);
     this.editor.revealPositionInCenter({ lineNumber: 1, column: 0 });
   }
