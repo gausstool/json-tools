@@ -1,6 +1,6 @@
 import { EnumTools } from './types';
+import PageWelcome from '@/views/PageWelcome.vue';
 const EditorDouble = () => import('@/views/PageEditorDouble.vue');
-const PageWelcome = () => import('@/views/PageWelcome.vue');
 
 export interface ITool {
   icon?: string;

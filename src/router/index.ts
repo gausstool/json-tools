@@ -4,6 +4,7 @@ import { isMobile } from '@/utils';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import LayoutHome from '@/layouts/LayoutHome.vue';
+import PageWelcome from '@/views/PageWelcome.vue';
 
 // 动态生成路由配置
 const routes = [
@@ -11,7 +12,7 @@ const routes = [
   {
     path: '/mobile',
     name: 'mobile',
-    component: () => import('@/views/PageMobile.vue'),
+    component: PageWelcome,
     meta: {
       title: '请使用桌面端浏览器访问',
     },
