@@ -19,32 +19,13 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('@/layouts/LayoutHome.vue'),
-    children: [
-      {
-        path: '/',
-        name: 'index',
-        component: () => import('@/layouts/components/LayoutNoConsole.vue'),
-        children: tools
-          .filter(tool => tool.component && tool.order === 0)
-          .map(tool => ({
-            name: tool.value,
-            component: tool.component,
-            path: tool.value,
-          })),
-      },
-      {
-        path: '/',
-        name: 'console',
-        component: () => import('@/layouts/components/LayoutConsole.vue'),
-        children: tools
-          .filter(tool => tool.component && tool.order !== 0)
-          .map(tool => ({
-            name: tool.value,
-            component: tool.component,
-            path: tool.value, // 使用工具名称作为路径
-          })),
-      },
-    ],
+    children: tools
+      .filter(tool => tool.component)
+      .map(tool => ({
+        name: tool.value,
+        component: tool.component,
+        path: tool.value, // 使用工具名称作为路径
+      })),
   },
 ];
 
