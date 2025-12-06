@@ -8,6 +8,7 @@ import { jsonNesting } from './modules/json-nesting';
 import { json2yaml, yaml2json } from './modules/json-yaml';
 import { csv2json, json2csv } from './modules/json-csv';
 import { json2Object, object2Json } from './modules/json-object';
+import { json2Ts } from './modules/json-ts';
 
 type ToolFunction = (input: string) => string | Promise<string>;
 
@@ -20,11 +21,7 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_NESTING]: jsonNesting,
   [EnumTools.JSON_TO_CSV]:  json2csv, // Placeholder for JSON to CSV function
   [EnumTools.CSV_TO_JSON]: csv2json,
-  [EnumTools.JSON_TO_TS]: async (input: string) => {
-    console.log(input);
-    const { Json2Ts } = await import('@gausszhou/json-to-ts');
-    return new Json2Ts().convert(input);
-  },
+  [EnumTools.JSON_TO_TS]: json2Ts,
   [EnumTools.JSON_TO_YAML]: json2yaml,
   [EnumTools.YAML_TO_JSON]: yaml2json,
   [EnumTools.OBJ_TO_JSON]: object2Json,

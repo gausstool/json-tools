@@ -35,7 +35,7 @@ import { ITool, tools } from '@/config';
 import { useRoute, useRouter } from 'vue-router';
 import { useToolsStore } from '@/store';
 import { EnumTools } from '@/types';
-import MacIconButton from '@/components/mac-icon-button.vue';
+import MacIconButton from '@/components/MacIconButton.vue';
 
 const { addRecentTool } = useToolsStore();
 const route = useRoute();

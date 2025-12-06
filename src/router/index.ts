@@ -3,6 +3,7 @@ import { tools, defaultTool } from '../config';
 import { isMobile } from '@/utils';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import LayoutHome from '@/layouts/LayoutHome.vue';
 
 // 动态生成路由配置
 const routes = [
@@ -18,7 +19,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('@/layouts/LayoutHome.vue'),
+    component: LayoutHome,
     children: tools
       .filter(tool => tool.component)
       .map(tool => ({
