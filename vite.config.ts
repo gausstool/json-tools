@@ -21,7 +21,7 @@ export default defineConfig(async () => ({
     outDir: process.env.VITE_BUILD_DIR || 'dist',
     rollupOptions: {
       output: {
-        manualChunks(id) {
+        manualChunks(id: string) {
           if (id.includes('.pnpm') || id.includes('node_modules')) {
             if (id.includes('@codemirror/lang-')) {
               return id.match(/@codemirror\/([\w\-]+)/)?.[1];
@@ -32,7 +32,7 @@ export default defineConfig(async () => ({
             if (id.includes('@gausszhou')) {
               return id.match(/@gausszhou\/([\w\-]+)/)?.[1];
             }
-            if (id.includes('vue') || id.includes('pinia')) {
+            if (id.includes('/vue') || id.includes('/pinia')) {
               return 'core';
             }
           }
