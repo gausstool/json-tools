@@ -21,6 +21,7 @@ export const methodMap: Record<EnumTools, ToolFunction> = {
   [EnumTools.JSON_TO_CSV]:  json2csv, // Placeholder for JSON to CSV function
   [EnumTools.CSV_TO_JSON]: csv2json,
   [EnumTools.JSON_TO_TS]: async (input: string) => {
+    console.log(input);
     const { Json2Ts } = await import('@gausszhou/json-to-ts');
     return new Json2Ts().convert(input);
   },
@@ -34,20 +35,6 @@ export async function processContent(input: string, type: EnumTools) {
   if (!methodMap[type]) {
     throw new Error(`Unsupported type: ${type}`);
   }
-  console.log('processContent', type)
-  let output = "";
-  let flag = "success";
-  try {
-    const result = methodMap[type](input);
-    if (result instanceof Promise) {
-      output = await result;
-    } else {
-      output = result;
-    }
-  } catch (error) {
-    flag = "failure";
-    output = error instanceof Error ? error.message : '处理失败';
-  }
-  return [output, flag];
+  return await methodMap[type](input);
 }
 
