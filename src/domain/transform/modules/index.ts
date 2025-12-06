@@ -1,14 +1,14 @@
 import { EnumTools } from '../types';
-import { jsonCompress } from './modules/json-compress';
-import { jsonFlat } from './modules/json-flat';
-import { jsonFormat } from './modules/json-format';
-import { jsonParseDeep } from './modules/json-parse-deep';
-import { jsonSort } from './modules/json-sort';
-import { jsonNesting } from './modules/json-nesting';
-import { json2yaml, yaml2json } from './modules/json-yaml';
-import { csv2json, json2csv } from './modules/json-csv';
-import { json2Object, object2Json } from './modules/json-object';
-import { json2Ts } from './modules/json-ts';
+import { jsonCompress } from './json-compress';
+import { jsonFlat } from './json-flat';
+import { jsonFormat } from './json-format';
+import { jsonParseDeep } from './json-parse-deep';
+import { jsonSort } from './json-sort';
+import { jsonNesting } from './json-nesting';
+import { json2yaml, yaml2json } from './json-yaml';
+import { csv2json, json2csv } from './json-csv';
+import { json2Object, object2Json } from './json-object';
+import { json2Ts } from './json-ts';
 
 type ToolFunction = (input: string) => string | Promise<string>;
 

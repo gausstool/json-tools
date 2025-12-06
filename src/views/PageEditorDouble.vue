@@ -13,11 +13,11 @@ import {
   addCommandSave,
   createEditorState,
   createEditorInstance,
-} from '@/editor/codemirror-editor';
-import { processContent } from '@/transform';
-import { EnumTools } from '@/types';
+} from '@/domain/editor/codemirror-editor';
+import { processContent } from '@/domain/transform/modules';
+import { EnumTools } from '@/domain/transform/types';
 import { EditorView } from '@codemirror/view';
-import { EditorManager } from '@/editor/editor-manager';
+import { EditorManager } from '@/domain/editor/editor-manager';
 
 const codeJsonCompress = `{
   "foo": "bar",
