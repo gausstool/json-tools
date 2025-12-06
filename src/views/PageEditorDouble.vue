@@ -122,7 +122,7 @@ async function save(): Promise<void> {
 
 async function fetch(): Promise<void> {
   const key = `code-tools-${String(route.name)}`;
-  await localforage.getItem(key).then(value => {
+  await localforage.getItem(key).then(async value => {
     // 根据路由设置语言
     if (route.name == EnumTools.YAML_TO_JSON) {
       currentLanguage1 = 'yaml';
@@ -168,7 +168,7 @@ async function fetch(): Promise<void> {
 
     // 设置编辑器内容
     if (editor1) {
-      const newState = createEditorState(initialContent, currentLanguage1);
+      const newState = await createEditorState(initialContent, currentLanguage1);
       editor1.setState(newState);
     }
   });
@@ -180,16 +180,16 @@ async function excute(): Promise<void> {
   const type = route.name as EnumTools;
   try {    
     const value2 = await processContent(value1, type);
-    const newState = createEditorState(value2, currentLanguage2);
+    const newState = await createEditorState(value2, currentLanguage2);
     editor2?.setState(newState);
   } catch (error: any) {
-    const newState = createEditorState(error.message, currentLanguage2);
+    const newState = await createEditorState(error.message, currentLanguage2);
     editor2?.setState(newState);
   }
 }
 onMounted(async () => {
-  const state1 = createEditorState('', currentLanguage1);
-  const state2 = createEditorState('', currentLanguage2);
+  const state1 = await createEditorState('', currentLanguage1);
+  const state2 = await createEditorState('', currentLanguage2);
   if (!editor1Container.value || !editor2Container.value) return;
   editor1 = createEditorInstance(editor1Container.value, state1);
   editor2 = createEditorInstance(editor2Container.value, state2);

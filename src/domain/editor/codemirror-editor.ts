@@ -1,26 +1,22 @@
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
-import { javascript } from '@codemirror/lang-javascript';
-import { json } from '@codemirror/lang-json';
-import { yaml } from '@codemirror/lang-yaml';
-import { sql } from '@codemirror/lang-sql';
 import { defaultKeymap } from '@codemirror/commands';
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 // 语言映射
-const languageMap: Record<string, any> = {
-  javascript: javascript,
-  json: json,
-  yaml: yaml,
-  sql: sql,
-  'text/plain': () => [],
+const languageMap: Record<string, () => Promise<any>> = {
+  javascript: async () => (await import('@codemirror/lang-javascript')).javascript,
+  json: async () => (await import('@codemirror/lang-json')).json,
+  yaml: async () => (await import('@codemirror/lang-yaml')).yaml,
+  sql: async () => (await import('@codemirror/lang-sql')).sql,
+  'text/plain': async () => [],
 };
 
-export function createEditorState(value: string, language: string) {
-  const languageExtension = languageMap[language] ? languageMap[language]() : [];
-
+export async function createEditorState(value: string, language: string) {
+  const languageLoader = languageMap[language] || languageMap['text/plain'];
+  const languageExtension = await languageLoader();
   return EditorState.create({
     doc: value,
-    extensions: [languageExtension, vscodeDark, keymap.of([...defaultKeymap]), EditorView.lineWrapping],
+    extensions: [vscodeDark, keymap.of([...defaultKeymap]), EditorView.lineWrapping, languageExtension()],
   });
 }
 

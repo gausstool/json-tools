@@ -1,11 +1,11 @@
-import yaml from 'js-yaml';
-
-export function json2yaml(input: string): string {
+export async function json2yaml(input: string): Promise<string> {
     const obj = JSON.parse(input);
+    const yaml = await import('js-yaml');
     return yaml.dump(obj);
 }
 
-export function yaml2json(input: string): string {
+export async function yaml2json(input: string): Promise<string> {
+    const yaml = await import('js-yaml');
     const obj = yaml.load(input);
     return JSON.stringify(obj, null, 2);
 }
