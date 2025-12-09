@@ -9,11 +9,7 @@
 import localforage from 'localforage';
 import { onMounted, onUnmounted, watch, ref } from 'vue';
 import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router';
-import {
-  addCommandSave,
-  createEditorState,
-  createEditorInstance,
-} from '@/domain/editor/codemirror-editor';
+import { addCommandSave, createEditorState, createEditorInstance } from '@/domain/editor/codemirror-editor';
 import { processContent } from '@/domain/transform/modules';
 import { EnumTools } from '@/domain/transform/types';
 import { EditorView } from '@codemirror/view';
@@ -168,7 +164,7 @@ async function fetch(): Promise<void> {
 
     // 设置编辑器内容
     if (editor1) {
-      const newState = await createEditorState(initialContent, currentLanguage1);
+      const newState = await createEditorState(initialContent, currentLanguage1, { onchange: excute });
       editor1.setState(newState);
     }
   });
@@ -178,7 +174,7 @@ async function excute(): Promise<void> {
   if (!editor1) return;
   const value1 = editor1.state.doc.toString();
   const type = route.name as EnumTools;
-  try {    
+  try {
     const value2 = await processContent(value1, type);
     const newState = await createEditorState(value2, currentLanguage2);
     editor2?.setState(newState);
@@ -188,7 +184,7 @@ async function excute(): Promise<void> {
   }
 }
 onMounted(async () => {
-  const state1 = await createEditorState('', currentLanguage1);
+  const state1 = await createEditorState('', currentLanguage1, { onchange: excute });
   const state2 = await createEditorState('', currentLanguage2);
   if (!editor1Container.value || !editor2Container.value) return;
   editor1 = createEditorInstance(editor1Container.value, state1);

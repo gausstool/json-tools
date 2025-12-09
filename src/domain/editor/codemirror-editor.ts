@@ -11,12 +11,26 @@ const languageMap: Record<string, () => Promise<any>> = {
   'text/plain': async () => [],
 };
 
-export async function createEditorState(value: string, language: string) {
+export async function createEditorState(value: string, language: string, {
+  onchange
+} = {
+  onchange: () => {}
+}) {  
   const languageLoader = languageMap[language] || languageMap['text/plain'];
   const languageExtension = await languageLoader();
   return EditorState.create({
     doc: value,
-    extensions: [vscodeDark, keymap.of([...defaultKeymap]), EditorView.lineWrapping, languageExtension()],
+    extensions: [
+      vscodeDark,
+      keymap.of([...defaultKeymap]),
+      EditorView.lineWrapping,
+      languageExtension(),
+      EditorView.updateListener.of(update => {
+        if (update.docChanged) {
+          onchange()
+        }
+      }),
+    ],
   });
 }
 
