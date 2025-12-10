@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import 'dotenv/config';
 
-export default defineConfig(async () => ({
+export default defineConfig({
   base: process.env.VITE_BASE_URL || '/',
   plugins: [nodePolyfills(), vue()],
   clearScreen: false,
@@ -40,4 +40,4 @@ export default defineConfig(async () => ({
       },
     },
   },
-}));
+});
