@@ -101,8 +101,11 @@ const onRadioClick = async (tool: ITool) => {
     width: 24px;
   }
 }
+
 .tool-container {
-  height: 100%;
+  height: calc(100% - 10px);
   width: calc(100% - 150px);
+  padding: 5px;
+  background-color: #202020;
 }
 </style>

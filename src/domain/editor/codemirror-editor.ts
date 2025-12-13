@@ -1,7 +1,17 @@
 import { EditorState } from '@codemirror/state';
-import { EditorView, keymap } from '@codemirror/view';
-import { defaultKeymap } from '@codemirror/commands';
+import {
+  crosshairCursor,
+  EditorView,
+  highlightActiveLine,
+  highlightActiveLineGutter,
+  keymap,
+  lineNumbers,
+} from '@codemirror/view';
+import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
+import { bracketMatching, foldKeymap } from '@codemirror/language';
+import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
+import { autocompletion, closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
 // 语言映射
 const languageMap: Record<string, () => Promise<any>> = {
   javascript: async () => (await import('@codemirror/lang-javascript')).javascript,
@@ -11,23 +21,55 @@ const languageMap: Record<string, () => Promise<any>> = {
   'text/plain': async () => [],
 };
 
-export async function createEditorState(value: string, language: string, {
-  onchange
-} = {
-  onchange: () => {}
-}) {  
+export async function createEditorState(
+  value: string,
+  language: string,
+  { onchange } = {
+    onchange: () => {},
+  }
+) {
   const languageLoader = languageMap[language] || languageMap['text/plain'];
   const languageExtension = await languageLoader();
   return EditorState.create({
     doc: value,
     extensions: [
-      vscodeDark,
-      keymap.of([...defaultKeymap]),
-      EditorView.lineWrapping,
+      // A line number gutter
+      lineNumbers(),
+      // The undo history
+      history(),
+      // Highlight matching brackets near cursor
+      bracketMatching(),
+      // Automatically close brackets
+      closeBrackets(),
+      // Load the autocompletion system
+      autocompletion(),
+      // Change the cursor to a crosshair when holding alt
+      crosshairCursor(),
+      // Style the current line specially
+      highlightActiveLine(),
+      // Style the gutter for current line specially
+      highlightActiveLineGutter(),
+      // Highlight text that matches the selected text
+      highlightSelectionMatches(),
+      // language extension
       languageExtension(),
+      vscodeDark,
+      keymap.of([
+        // Closed-brackets aware backspace
+        ...closeBracketsKeymap,
+        // A large set of basic bindings
+        ...defaultKeymap,
+        // Search-related keys
+        ...searchKeymap,
+        // Redo/undo keys
+        ...historyKeymap,
+        // Code folding bindings
+        ...foldKeymap,
+      ]),
+      EditorView.lineWrapping,
       EditorView.updateListener.of(update => {
         if (update.docChanged) {
-          onchange()
+          onchange();
         }
       }),
     ],
