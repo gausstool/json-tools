@@ -1,6 +1,6 @@
 {
   "name": "json-tools",
-  "version": "1.4.6",
+  "version": "1.5.0",
   "author": "gausszhou",
   "scripts": {
     "dev": "vite --host",
@@ -24,11 +24,13 @@
     "@gausszhou/json-to-ts": "^0.0.3",
     "@uiw/codemirror-theme-vscode": "^4.25.3",
     "dayjs": "^1.11.7",
+    "js-base64": "^3.7.8",
     "js-yaml": "^4.1.0",
     "localforage": "^1.10.0",
     "nprogress": "^0.2.0",
     "papaparse": "^5.5.3",
     "pinia": "^3.0.3",
+    "sql-formatter": "^15.6.10",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },

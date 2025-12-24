@@ -1,4 +1,5 @@
 import { EnumTools } from './types';
+import PageRegExp from '@/views/PageRegExp.vue';
 import PageWelcome from '@/views/PageWelcome.vue';
 const EditorDouble = () => import('@/views/PageEditorDouble.vue');
 
@@ -15,12 +16,170 @@ export interface ITool {
 export const tools: ITool[] = [
   // 欢迎页面
   { icon: '👋', label: '欢迎', value: 'welcome', component: PageWelcome, order: 0 },
+  {
+    label: '文本 相关工具',
+    value: '',
+    component: EditorDouble,
+    order: 1,
+    space: true,
+  },
+  {
+    icon: '🔍',
+    label: 'TEXT 排序',
+    value: EnumTools.TEXT_SORT,
+    component: EditorDouble,
+    order: 3,
+    description: '对文本字符串进行排序',
+  },
+  {
+    icon: '📐',
+    label: 'TEXT 大小',
+    value: EnumTools.TEXT_SIZE,
+    component: EditorDouble,
+    order: 4,
+    description: '计算文本字符串的字节大小',
+  },
+  {
+    icon: '🔍',
+    label: 'Text 分号分割',
+    value: EnumTools.SEMI_SPLIT,
+    component: EditorDouble,
+    order: 6,
+    description: '使用分号;分割字符串',
+  },
+  {
+    icon: '🔍',
+    label: 'Text 逗号分割',
+    value: EnumTools.COMMA_SPLIT,
+    component: EditorDouble,
+    order: 6,
+    description: '使用逗号,分割字符串',
+  },
+  {
+    icon: '🔍',
+    label: 'Text 换行分割',
+    value: EnumTools.LINE_SPLIT,
+    component: EditorDouble,
+    order: 7,
+    description: '使用换行符分割字符串',
+  },
+  {
+    icon: '🔍',
+    label: '正则表达式',
+    value: EnumTools.REGEX_TEST,
+    component: PageRegExp,
+    order: 99,
+    description: '测试正则表达式对文本字符串的匹配情况',
+  },
+  {
+    icon: '🔗',
+    label: 'URL 解析',
+    value: EnumTools.URL_PARSE,
+    component: EditorDouble,
+    order: 101,
+    description: '解析 URL 字符串，提取协议、主机、端口、路径等信息',
+  },
+  {
+    icon: '🌍',
+    label: 'URL 编码',
+    value: EnumTools.URL_ENCODE,
+    component: EditorDouble,
+    order: 102,
+    description: '对 URL 字符串进行编码，替换特殊字符',
+  },
+  {
+    icon: '🌎',
+    label: 'URL 解码',
+    value: EnumTools.URL_DECODE,
+    component: EditorDouble,
+    order: 103,
+    description: '对 URL 字符串进行解码，恢复特殊字符',
+  },
+  {
+    icon: '🔡',
+    label: 'Base64 编码',
+    value: EnumTools.BASE64_ENCODE,
+    component: EditorDouble,
+    order: 201,
+    description: '对文本字符串进行 Base64 编码',
+  },
+  {
+    icon: '🔠',
+    label: 'Base64 解码',
+    value: EnumTools.BASE64_DECODE,
+    component: EditorDouble,
+    order: 202,
+    description: '对 Base64 编码的字符串进行解码',
+  },
+  {
+    label: '请求相关工具',
+    value: '',
+    component: EditorDouble,
+    order: 400,
+    space: true,
+  },
+  {
+    icon: '🛡️',
+    label: 'CSP 解析',
+    value: EnumTools.CSP_PARSE,
+    component: EditorDouble,
+    order: 401,
+    description: '解析 CSP 字符串，提取指令和值',
+  },
+  {
+    icon: '🛡️',
+    label: 'CSP 逆解析',
+    value: EnumTools.CSP_UNPARSE,
+    component: EditorDouble,
+    order: 402,
+    description: '将 CSP 指令和值转换为字符串',
+  },
+  {
+    icon: '🌐',
+    label: 'HTTP 缓存解读',
+    value: EnumTools.HTTP_CACHE_ANALYZE,
+    component: EditorDouble,
+    order: 403,
+    description: '解读 HTTP 缓存控制头，提取缓存策略',
+  },
+  {
+    icon: '🌐',
+    label: 'HTTP 跨域解读',
+    value: EnumTools.HTTP_CORS_ANALYZE,
+    component: EditorDouble,
+    order: 404,
+    description: '解读 HTTP 跨域资源共享头，提取允许的来源',
+  },
+
+  {
+    label: 'SQL 相关工具',
+    value: '',
+    component: EditorDouble,
+    order: 500,
+    space: true,
+  },
+  {
+    icon: '⛃',
+    label: 'SQL 压缩',
+    value: EnumTools.SQL_COMPRESS,
+    component: EditorDouble,
+    order: 501,
+    description: '压缩 SQL 语句，移除空格和注释',
+  },
+  {
+    icon: '⛁',
+    label: 'SQL 格式化',
+    value: EnumTools.SQL_FORMAT,
+    component: EditorDouble,
+    order: 502,
+    description: '格式化 SQL 语句，添加换行和缩进',
+  },
   // JSON 核心工具
   {
     label: 'JSON 核心工具',
     value: '',
     component: EditorDouble,
-    order: 200,
+    order: 600,
     space: true,
   },
   {
@@ -28,7 +187,7 @@ export const tools: ITool[] = [
     label: 'JSON 压缩',
     value: EnumTools.JSON_COMPRESS,
     component: EditorDouble,
-    order: 201,
+    order: 601,
     description: '压缩 JSON 字符串，移除空格和换行',
   },
   {
@@ -36,7 +195,7 @@ export const tools: ITool[] = [
     label: 'JSON 格式化',
     value: EnumTools.JSON_FORMAT,
     component: EditorDouble,
-    order: 202,
+    order: 602,
     description: '格式化 JSON 字符串，添加换行和缩进',
   },
   {
@@ -44,7 +203,7 @@ export const tools: ITool[] = [
     label: 'JSON 深度排序',
     value: EnumTools.JSON_SORT,
     component: EditorDouble,
-    order: 203,
+    order: 603,
     description: '对 JSON 对象进行深度排序',
   },
   {
@@ -52,7 +211,7 @@ export const tools: ITool[] = [
     label: 'JSON 深度解析',
     value: EnumTools.JSON_PARSE_DEEP,
     component: EditorDouble,
-    order: 204,
+    order: 604,
     description: '深度解析 JSON 字符串，支持嵌套对象和数组',
   },
 
@@ -61,7 +220,7 @@ export const tools: ITool[] = [
     label: 'JSON 对象转接口',
     value: EnumTools.JSON_TO_TS,
     component: EditorDouble,
-    order: 205,
+    order: 605,
     description: '将 JSON 对象转换为 TypeScript 接口',
   },
   // 格式转换工具
@@ -70,7 +229,7 @@ export const tools: ITool[] = [
     label: '格式转换工具',
     value: '',
     component: EditorDouble,
-    order: 300,
+    order: 700,
     space: true,
   },
       {
@@ -78,7 +237,7 @@ export const tools: ITool[] = [
     label: 'JSON 嵌套转扁平',
     value: EnumTools.JSON_FLAT,
     component: EditorDouble,
-    order: 301,
+    order: 701,
     description: '将嵌套的 JSON 对象转换为扁平结构',
   },
   {
@@ -86,7 +245,7 @@ export const tools: ITool[] = [
     label: 'JSON 扁平转嵌套',
     value: EnumTools.JSON_NESTING,
     component: EditorDouble,
-    order: 302,
+    order: 702,
     description: '将扁平的 JSON 对象转换为嵌套结构',
   },
   {
@@ -94,7 +253,7 @@ export const tools: ITool[] = [
     label: 'JSON 转 Object',
     value: EnumTools.JSON_TO_OBJ,
     component: EditorDouble,
-    order: 303,
+    order: 703,
     description: '将 JSON 字符串转换为 JavaScript 对象',
   },
   {
@@ -102,7 +261,7 @@ export const tools: ITool[] = [
     label: 'Object 转 JSON',
     value: EnumTools.OBJ_TO_JSON,
     component: EditorDouble,
-    order: 304,
+    order: 704,
     description: '将 JavaScript 对象转换为 JSON 字符串',
   },
   {

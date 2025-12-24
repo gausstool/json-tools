@@ -32,6 +32,12 @@ export default defineConfig({
             if (id.includes('@gausszhou')) {
               return id.match(/@gausszhou\/([\w\-]+)/)?.[1];
             }
+            if (id.includes('sql-formatter')) {
+              return 'sql-formatter';
+            }
+            if (id.includes('js-base64')) {
+              return 'js-base64';
+            }
             if (id.includes('/vue') || id.includes('/pinia')) {
               return 'core';
             }
