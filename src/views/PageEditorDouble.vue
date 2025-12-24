@@ -100,6 +100,74 @@ const codeJson2Obj = `{
   "c": 3
 }`;
 
+const codeSize = `计算字符串所占的内存字节数，
+使用 UTF-8 和 UTF-16 的编码方式计算。
+UTF-8 和 UTF-16 都是 Unicode 标准的字符编码方案，
+但它们的设计选择导致了截然不同的特性和适用场景。
+  - UTF-8 使用 1 到 4 个字节 的变长编码来表示一个字符。核心特点：向后兼容 ASCII。
+  - UTF-16 使用 2 或 4 个字节 的变长编码来表示一个字符。核心特点：表示非 ASCII 字符通常只需要 2 个字节。
+对于 CJK 文本（中文/日文/韩文），UTF-8 通常需要 3 个字节来表示一个字符，而 UTF-16 通常只需要 2 个字节。
+对于英文文本，UTF-8 通常需要只需要 1 个字节，而 UTF-16 通常需要 2 个字节来表示一个字符。
+因此，在英文文本中，UTF-8 通常是更节省空间的选择，而在 CJK 文本中，UTF-16 通常是更节省空间的选择。
+由于 UTF-8 兼容 ASCII，因此在绝大多数现代应用中，UTF-8 是默认选择。`;
+
+const codeTextSort = `3. 按字典序排序
+1. 对文本进行排序
+2. 每行一个字符串
+`;
+
+const codeBase64Encode = `你好世界`;
+const codeBase64Decode = `5L2g5aW95LiW55WM`;
+const codeUrlEncode = `你好世界`;
+const codeUrlDecode = `%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C`;
+const codeCspParse = `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.example.com; style-src 'self' fonts.example.com; img-src 'self' data: example.com; font-src 'self' data: fonts.example.com; form-action 'self'`;
+const codeCspUnparse = `{
+  "default-src": ["'self'"],
+  "script-src": ["'self'","'unsafe-inline'", "'unsafe-eval'", "cdn.example.com"],
+  "style-src": ["'self'", "fonts.example.com"],
+  "img-src": ["'self'", "data:", "example.com"],
+  "font-src": ["'self'", "data:", "fonts.example.com"],
+  "form-action": ["'self'"]
+}`;
+
+const codeHttpCacheAnalyze = `Content-Type: text/html
+Content-Length: 1024
+Date: Tue, 22 Feb 2022 22:22:22 GMT
+Cache-Control: max-age=604800`;
+
+const codeHttpCorsAnalyze = `Content-Type: application/json
+Content-Length: 123
+Access-Control-Allow-Origin: https://example.com
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: X-Custom-Header, X-Another-Header
+Access-Control-Max-Age: 86400`;
+
+const codeSqlFormat = `SELECT id, name, email, created_at FROM users WHERE status = 'active' AND created_at > '2023-01-01' ORDER BY created_at DESC LIMIT 10;`;
+
+const codeSqlCompress = `SELECT 
+  id, 
+  name, 
+  email, 
+  created_at 
+FROM 
+  users 
+WHERE 
+  status = 'active' 
+  AND created_at > '2023-01-01' 
+ORDER BY 
+  created_at DESC 
+LIMIT 10;`;
+
+const codeSemiSplit = `localhost;127.*;10.*;192.168.*`;
+const codeCommaSPlit = `a,b,c`;
+const codeLineSplit = `a
+b
+c
+d
+e
+f`;
 const editor1Container = ref<HTMLElement>();
 const editor2Container = ref<HTMLElement>();
 
@@ -160,6 +228,38 @@ async function fetch(): Promise<void> {
       initialContent = (value as string) || codeObjectJson;
     } else if (route.name == EnumTools.JSON_TO_OBJ) {
       initialContent = (value as string) || codeJson2Obj;
+    } else if (route.name == EnumTools.TEXT_SIZE) {
+      initialContent = codeSize;
+    } else if (route.name == EnumTools.TEXT_SORT) {
+      initialContent = codeTextSort;
+    } else if (route.name == EnumTools.URL_PARSE) {
+      initialContent = window.location.href;
+    } else if (route.name == EnumTools.BASE64_ENCODE) {
+      initialContent = codeBase64Encode;
+    } else if (route.name == EnumTools.BASE64_DECODE) {
+      initialContent = codeBase64Decode;
+    } else if (route.name == EnumTools.URL_ENCODE) {
+      initialContent = codeUrlEncode;
+    } else if (route.name == EnumTools.URL_DECODE) {
+      initialContent = codeUrlDecode;
+    } else if (route.name == EnumTools.CSP_PARSE) {
+      initialContent = codeCspParse;
+    } else if (route.name == EnumTools.CSP_UNPARSE) {
+      initialContent = codeCspUnparse;
+    } else if (route.name == EnumTools.HTTP_CACHE_ANALYZE) {
+      initialContent = codeHttpCacheAnalyze;
+    } else if (route.name == EnumTools.HTTP_CORS_ANALYZE) {
+      initialContent = codeHttpCorsAnalyze;
+    } else if (route.name == EnumTools.SQL_FORMAT) {
+      initialContent = codeSqlFormat;
+    } else if (route.name == EnumTools.SQL_COMPRESS) {
+      initialContent = codeSqlCompress;
+    } else if (route.name == EnumTools.SEMI_SPLIT) {
+      initialContent = codeSemiSplit;
+    } else if (route.name == EnumTools.COMMA_SPLIT) {
+      initialContent = codeCommaSPlit;
+    } else if (route.name == EnumTools.LINE_SPLIT) {
+      initialContent = codeLineSplit;
     }
 
     // 设置编辑器内容
