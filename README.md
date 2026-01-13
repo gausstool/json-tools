@@ -2,14 +2,7 @@
 
 强大的 JSON 处理工具集
 
-[![json-tools](https://www.gausszhou.top/static/data/github/json-tools/2.png)](https://gausstool.github.io/json-tools/)
-
 ## Features
-
-### 高级特性
-
-- [ ] 组合工具（串行）
-- [ ] 自定义函数工具
 
 ### 核心工具
 
