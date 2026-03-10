@@ -3,7 +3,7 @@
     <!-- 头部区域 -->
     <div class="welcome-header">
       <div class="welcome-title">
-        <h1>JSON Tools</h1>
+        <h1>JSON 工具箱</h1>
         <p class="subtitle">强大的 JSON 处理工具集</p>
       </div>
     </div>
