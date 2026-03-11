@@ -18,7 +18,6 @@ const languageMap: Record<string, () => Promise<any>> = {
   json: async () => (await import('@codemirror/lang-json')).json,
   yaml: async () => (await import('@codemirror/lang-yaml')).yaml,
   sql: async () => (await import('@codemirror/lang-sql')).sql,
-  'text/plain': async () => [],
 };
 
 export async function createEditorState(
@@ -28,7 +27,7 @@ export async function createEditorState(
     onchange: () => {},
   }
 ) {
-  const languageLoader = languageMap[language] || languageMap['text/plain'];
+  const languageLoader = languageMap[language] || languageMap['javascript'];
   const languageExtension = await languageLoader();
   return EditorState.create({
     doc: value,
