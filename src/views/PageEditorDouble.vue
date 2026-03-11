@@ -9,7 +9,7 @@
 import localforage from 'localforage';
 import { onMounted, onUnmounted, watch, ref } from 'vue';
 import { useRoute, type RouteLocationNormalizedLoaded } from 'vue-router';
-import { addCommandSave, createEditorState, createEditorInstance } from '@/domain/editor/codemirror-editor';
+import { addCommandSave, createEditorInstance, createEditorState } from '@/domain/editor/codemirror-editor';
 import { processContent } from '@/domain/transform/modules';
 import { EnumTools } from '@/domain/transform/types';
 import { EditorView } from '@codemirror/view';
@@ -118,56 +118,56 @@ async function save(): Promise<void> {
 
 async function fetch(): Promise<void> {
   const key = `code-tools-${String(route.name)}`;
-  await localforage.getItem(key).then(async value => {
-    // 根据路由设置语言
-    if (route.name == EnumTools.YAML_TO_JSON) {
-      currentLanguage1 = 'yaml';
-      currentLanguage2 = 'javascript';
-    } else if (route.name == EnumTools.JSON_TO_YAML) {
-      currentLanguage1 = 'javascript';
-      currentLanguage2 = 'yaml';
-    } else {
-      currentLanguage1 = 'javascript';
-      currentLanguage2 = 'javascript';
-    }
+  const value = (await localforage.getItem(key)) as string;
 
-    // 设置内容
-    let initialContent = '';
+  // 根据路由设置语言
+  if (route.name == EnumTools.YAML_TO_JSON) {
+    currentLanguage1 = 'yaml';
+    currentLanguage2 = 'javascript';
+  } else if (route.name == EnumTools.JSON_TO_YAML) {
+    currentLanguage1 = 'javascript';
+    currentLanguage2 = 'yaml';
+  } else {
+    currentLanguage1 = 'javascript';
+    currentLanguage2 = 'javascript';
+  }
 
-    if (route.name == EnumTools.YAML_TO_JSON) {
-      initialContent = (value as string) || codeYamlJson;
-    } else if (route.name == EnumTools.JSON_TO_YAML) {
-      initialContent = (value as string) || codeJsonYaml;
-    } else if (route.name == EnumTools.JSON_COMPRESS) {
-      initialContent = (value as string) || codeJsonCompress;
-    } else if (route.name == EnumTools.JSON_FORMAT) {
-      initialContent = (value as string) || codeJsonFormat;
-    } else if (route.name == EnumTools.JSON_PARSE_DEEP) {
-      initialContent = (value as string) || codeJsonParser;
-    } else if (route.name == EnumTools.JSON_SORT) {
-      initialContent = (value as string) || codeJsonSort;
-    } else if (route.name == EnumTools.JSON_TO_TS) {
-      initialContent = (value as string) || codeJson2Ts;
-    } else if (route.name == EnumTools.JSON_FLAT) {
-      initialContent = (value as string) || codeJsonFlat;
-    } else if (route.name == EnumTools.JSON_NESTING) {
-      initialContent = (value as string) || codeJsonNesting;
-    } else if (route.name == EnumTools.JSON_TO_CSV) {
-      initialContent = (value as string) || codeJsonCsv;
-    } else if (route.name == EnumTools.CSV_TO_JSON) {
-      initialContent = (value as string) || codeCsvJson;
-    } else if (route.name == EnumTools.OBJ_TO_JSON) {
-      initialContent = (value as string) || codeObjectJson;
-    } else if (route.name == EnumTools.JSON_TO_OBJ) {
-      initialContent = (value as string) || codeJson2Obj;
-    } 
+  // 设置内容
+  let initialContent = '';
 
-    // 设置编辑器内容
-    if (editor1) {
-      const newState = await createEditorState(initialContent, currentLanguage1, { onchange: excute });
-      editor1.setState(newState);
-    }
-  });
+  if (route.name == EnumTools.YAML_TO_JSON) {
+    initialContent = (value as string) || codeYamlJson;
+  } else if (route.name == EnumTools.JSON_TO_YAML) {
+    initialContent = (value as string) || codeJsonYaml;
+  } else if (route.name == EnumTools.JSON_COMPRESS) {
+    initialContent = (value as string) || codeJsonCompress;
+  } else if (route.name == EnumTools.JSON_FORMAT) {
+    initialContent = (value as string) || codeJsonFormat;
+  } else if (route.name == EnumTools.JSON_PARSE_DEEP) {
+    initialContent = (value as string) || codeJsonParser;
+  } else if (route.name == EnumTools.JSON_SORT) {
+    initialContent = (value as string) || codeJsonSort;
+  } else if (route.name == EnumTools.JSON_TO_TS) {
+    initialContent = (value as string) || codeJson2Ts;
+  } else if (route.name == EnumTools.JSON_FLAT) {
+    initialContent = (value as string) || codeJsonFlat;
+  } else if (route.name == EnumTools.JSON_NESTING) {
+    initialContent = (value as string) || codeJsonNesting;
+  } else if (route.name == EnumTools.JSON_TO_CSV) {
+    initialContent = (value as string) || codeJsonCsv;
+  } else if (route.name == EnumTools.CSV_TO_JSON) {
+    initialContent = (value as string) || codeCsvJson;
+  } else if (route.name == EnumTools.OBJ_TO_JSON) {
+    initialContent = (value as string) || codeObjectJson;
+  } else if (route.name == EnumTools.JSON_TO_OBJ) {
+    initialContent = (value as string) || codeJson2Obj;
+  }
+
+  // 设置编辑器内容
+  if (editor1) {
+    const newState = await createEditorState(initialContent, currentLanguage1, { onchange: excute });
+    editor1.setState(newState);
+  }
 }
 
 async function excute(): Promise<void> {
