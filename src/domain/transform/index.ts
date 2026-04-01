@@ -1,5 +1,6 @@
 import { EnumTools } from './types';
 import PageWelcome from '@/views/PageWelcome.vue';
+import PagePipeline from '@/views/PagePipeline.vue';
 const EditorDouble = () => import('@/views/PageEditorDouble.vue');
 
 export interface ITool {
@@ -174,6 +175,21 @@ export const tools: ITool[] = [
     component: EditorDouble,
     order: 1001,
     description: '将 JSON 对象转换为 TypeScript 接口',
+  },
+  {
+    label: '编排工具',
+    value: '',
+    component: PagePipeline,
+    order: 2000,
+    space: true,
+  },
+  {
+    icon: '🔗',
+    label: '管道编排',
+    value: 'pipeline',
+    component: PagePipeline,
+    order: 2001,
+    description: '将多个转换函数串行编排执行',
   },
 ].sort((a, b) => a.order - b.order);
 
